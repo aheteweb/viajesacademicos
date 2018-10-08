@@ -570,6 +570,7 @@
 	
 	//Manage internal pages
 		function populateInternalPages(section){
+			console.log('pop')
 			$('#mhAdminpage .list-pages').empty();
 			$.each(mH.pages, function(key, pair){
 				$('#mhAdminpage .list-pages').append('<li class="list-group-item">' + pair.title + '<div class="btn-group btn-group-sm float-right"><button type="button" class="btn xs btn-outline-secondary view" data-url="' + key + '"><i class="fas fa-eye"></i></button><button type="button" class="btn xs btn-outline-danger rm" data-page="' + key + '"><i class="fas fa-times-circle"></i></button></div></li>');
