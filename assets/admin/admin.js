@@ -1007,6 +1007,7 @@
 		function saveProduct(_type, _clicked){
 			var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
 			var title = $(_clicked).closest('.product-edit').find('#ptitle').val();
+			var condensedType = _type === 'campamentos' ? 'camps' : 'promos';
 			if($(_clicked).closest('.product-edit').attr('data-editing')){
 				var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
 			}else{
@@ -1025,14 +1026,18 @@
 					var image = $('.' + _type + ' .product-preview').attr('src');
 					
 					var fileContent  = '---\n';
-							fileContent += 'title: ' + titleEn + '\n';
+							fileContent += 'title: ' + title + '\n';
 							fileContent += 'layout: default\n';
 							fileContent += 'image: ' + image + '\n';
 							fileContent += '---\n';
 							fileContent += contentSections;
 							fileContent = encodeContent(fileContent);
 
-					mH.products[fileName] = fileContent;
+					if(_type === 'campamentos'){
+						mH.camps[fileName] = fileContent;
+					}else{
+						mH.promos[fileName] = fileContent;
+					}
 
 					if($('.product-edit').attr('data-editing')){
 						updateFile({
@@ -1045,8 +1050,8 @@
 							action: function(data, status, xhr){
 								updatemH(function(){
 									loading('body', true);
-									populateProducts();
-									toggleProducts();
+									populateSpecials(condensedType);
+									toggleProducts(condensedType);
 								})
 							}
 						});				
@@ -1061,8 +1066,8 @@
 							action: function(data, status, xhr){
 								updatemH(function(){
 									loading('body', true);
-									populateProducts();
-									toggleProducts();
+									populateSpecials(condensedType);
+									toggleProducts(condensedType);
 								})								
 							}
 						});				
