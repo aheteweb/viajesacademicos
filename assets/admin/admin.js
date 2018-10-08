@@ -570,7 +570,6 @@
 	
 	//Manage internal pages
 		function populateInternalPages(section){
-			console.log('pop')
 			$('#mhAdminpage .list-pages').empty();
 			$.each(mH.pages, function(key, pair){
 				$('#mhAdminpage .list-pages').append('<li class="list-group-item">' + pair.title + '<div class="btn-group btn-group-sm float-right"><button type="button" class="btn xs btn-outline-secondary view" data-url="' + key + '"><i class="fas fa-eye"></i></button><button type="button" class="btn xs btn-outline-danger rm" data-page="' + key + '"><i class="fas fa-times-circle"></i></button></div></li>');
@@ -811,7 +810,6 @@
 		});
 		$(document).on('click', '.hide-dropzone', function(){
 			if($(this).hasClass('reload')){
-				console.log('is reload')
 				var returnPath = $('#mhAdminpage .input-group-text').text() + $('#mhAdminpage #uploadPath').val();
 				openImages({
 					folder: returnPath.replace(/\/$/, ""),
@@ -929,7 +927,6 @@
 	
 	//Productsn
 		function populateSpecials(_type){
-			console.log(_type)
 			var listSelector = '#mh' + _type + ' ul';
 			var editFunctionParams = '&quot edit&quot, &quot ' + _type + '&quot';
 			$(listSelector).empty();
@@ -959,7 +956,6 @@
 		}
 
 		function editSpecials(_action, _type, _clicked){
-			console.log(_clicked)
 			_action = _action.trim();
 			_type = _type.trim();
 			if(_action === 'create'){
@@ -967,18 +963,21 @@
 				$('#ptitle').val('');
 				$('#pimage').val('');
 				$('.product-preview').attr('src', '');
-				toggleProducts();
+				toggleProducts(_type);
 			}else{
 				var fileName = $(_clicked).closest('.media').attr('data-file');
-				var image = $(_clicked).closest('.media').find('img').attr('src');
-				var imgName = image.lastIndexOf('/');
-						imgName = image.substring(imgName + 1);			
-				var title = $(_clicked).closest('.media').find('.title').text();
-				$('.product-edit').attr('data-editing', fileName);
-				$('#ptitle').val(title);
-				$('#pimage').val(imgName);
-				$('.product-preview').attr('src', image);
-				toggleProducts()
+				var image    = $(_clicked).closest('.media').find('img').attr('src');
+				var imgName  = image.lastIndexOf('/');
+				imgName      = image.substring(imgName + 1);			
+				var title    = $(_clicked).closest('.media').find('.title').text();
+				var _path		 = $(_clicked).closest('.media').attr('data-file');
+				var extraType = _type === 'camps' ? 'campamentos' : 'promociones';
+				$('.product-edit.' + _type).attr('data-editing', fileName);
+				$('.' + _type + ' #ptitle').val(title);
+				$('.' + _type + ' #pimage').val(imgName);
+				$('.' + _type + ' .product-preview').attr('src', image);
+				$('.' + _type + ' .edit-page').attr('href', baseUrl + extraType + '/' + _path)
+				toggleProducts(_type)
 			}
 		}
 		function deleteProduct(clicked){
@@ -1001,64 +1000,125 @@
 				})			
 			}			
 		}		
-		function toggleProducts(){
-			$('.product-list, .product-edit').toggle();
+		function toggleProducts(_type){
+			$('.product-list.' + _type + ', .product-edit.' + _type).toggle();
 			///
 		}
-		function saveProduct(){
+		function saveProduct(_type, _clicked){
+			var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
+			var title = $(_clicked).closest('.product-edit').find('#ptitle').val();
+			if($(_clicked).closest('.product-edit').attr('data-editing')){
+				var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
+			}else{
+				var fileName = formatThis(title, 'url') + '.html';
+			}			
+			var _path = _type + '/' + fileName;
 			loading('body');
-			var titleEn = $.trim($('#ptitle-en').val());
-			var titleEs = $.trim($('#ptitle-es').val());
-			var scientific = $.trim($('#pscientific').val());
-			var image = $('.product-preview').attr('src');
-			if($('.product-edit').attr('data-editing')){
-				var fileName = $('.product-edit').attr('data-editing');
-			}else{
-				var fileName = formatThis(titleEn, 'url') + '.html';
-			}
-			var fileContent  = '---\n';
-					fileContent += 'title: ' + titleEn + '\n';
-					fileContent += 'titulo: ' + titleEs + '\n';
-					fileContent += 'scientific: ' + scientific + '\n';
-					fileContent += 'image: ' + image + '\n';
-					fileContent += '---\n';
-					fileContent = encodeContent(fileContent);
+			getContents({
+				owner: gOwner,
+				repo: gRepo,
+				path: _path,
+				action: function(data, status, xhr){
+					var content = atob(decodeContent(data.content));
+					var contentSections = $.trim(content.split('---')[2])
+					var title = $.trim($('.' + _type + ' #ptitle').val());
+					var image = $('.' + _type + ' .product-preview').attr('src');
+					
+					var fileContent  = '---\n';
+							fileContent += 'title: ' + titleEn + '\n';
+							fileContent += 'layout: default\n';
+							fileContent += 'image: ' + image + '\n';
+							fileContent += '---\n';
+							fileContent += contentSections;
+							fileContent = encodeContent(fileContent);
 
-			mH.products[fileName] = fileContent;
+					mH.products[fileName] = fileContent;
 
-			if($('.product-edit').attr('data-editing')){
-				updateFile({
-					owner: gOwner,
-					repo: gRepo,
-					path: '_products/' + fileName,
-					content: fileContent,
-					message: 'commited from the website',
-					branch: 'master',
-					action: function(data, status, xhr){
-						updatemH(function(){
-							loading('body', true);
-							populateProducts();
-							toggleProducts();
-						})
+					if($('.product-edit').attr('data-editing')){
+						updateFile({
+							owner: gOwner,
+							repo: gRepo,
+							path: _path,
+							content: fileContent,
+							message: 'commited from the website',
+							branch: 'master',
+							action: function(data, status, xhr){
+								updatemH(function(){
+									loading('body', true);
+									populateProducts();
+									toggleProducts();
+								})
+							}
+						});				
+					}else{
+						createFile({
+							owner: gOwner,
+							repo: gRepo,
+							path: _path,
+							content: fileContent,
+							message: 'commited from the website',
+							branch: 'master',
+							action: function(data, status, xhr){
+								updatemH(function(){
+									loading('body', true);
+									populateProducts();
+									toggleProducts();
+								})								
+							}
+						});				
 					}
-				});				
-			}else{
-				createFile({
-					owner: gOwner,
-					repo: gRepo,
-					path: '_products/' + fileName,
-					content: fileContent,
-					message: 'commited from the website',
-					branch: 'master',
-					action: function(data, status, xhr){
-						updatemH(function(){
-							loading('body', true);
-							populateProducts();
-							toggleProducts();
-						})								
-					}
-				});				
-			}
+				}
+			})			
+			// 
+			// var title = $.trim($('.' + _type + ' #ptitle').val());
+			// var image = $('.' + _type + ' .product-preview').attr('src');
+			// if($('.product-edit.' + _type).attr('data-editing')){
+			// 	var fileName = $('.product-edit.' + _type).attr('data-editing');
+			// }else{
+			// 	var fileName = formatThis(title, 'url') + '.html';
+			// }
+			// var fileContent  = '---\n';
+			// 		fileContent += 'title: ' + titleEn + '\n';
+			// 		fileContent += 'layout: default\n';
+			// 		fileContent += 'image: ' + image + '\n';
+			// 		fileContent += '---\n';
+			// 		fileContent = encodeContent(fileContent);
+
+			// mH.products[fileName] = fileContent;
+
+			// if($('.product-edit').attr('data-editing')){
+			// 	updateFile({
+			// 		owner: gOwner,
+			// 		repo: gRepo,
+			// 		path: '_products/' + fileName,
+			// 		content: fileContent,
+			// 		message: 'commited from the website',
+			// 		branch: 'master',
+			// 		action: function(data, status, xhr){
+			// 			updatemH(function(){
+			// 				loading('body', true);
+			// 				populateProducts();
+			// 				toggleProducts();
+			// 			})
+			// 		}
+			// 	});				
+			// }else{
+			// 	createFile({
+			// 		owner: gOwner,
+			// 		repo: gRepo,
+			// 		path: '_products/' + fileName,
+			// 		content: fileContent,
+			// 		message: 'commited from the website',
+			// 		branch: 'master',
+			// 		action: function(data, status, xhr){
+			// 			updatemH(function(){
+			// 				loading('body', true);
+			// 				populateProducts();
+			// 				toggleProducts();
+			// 			})								
+			// 		}
+			// 	});				
+			// }
 		}
 
 //Start-Stop-Save
@@ -1241,7 +1301,6 @@
 		$('html').toggleClass('sections-open');
 		//Target section being edited
 			editingSection = section;
-			console.log(section)
 			sectionType = $(editingSection)[0].getAttribute('data-mhsection');
 		//Call the specific function for the type of section being edited	
 		editFunctions[sectionType]();
@@ -1267,7 +1326,6 @@
 		$('.mhOptions').removeClass('d-none')
 		$('html').toggleClass('sections-open');
 		if(sectionType === 'header_slider' || sectionType === 'slider'){
-			console.log('slider')
 			//Add a class so I can init the slider once appended to the mhContent
 			$('.preview [data-options]').addClass('initSlider');
 			//Remove the active class used to edit one slide at a time
@@ -1321,7 +1379,6 @@
 			if(!bgImg.includes("picsum")){
 				$('#mhSectionOptions .slider-edit input').val(imgName);
 			}
-			console.log($('.preview .slider'))
 			if($('.preview .slider').hasClass('container')){
 				$('.preview input#content').prop('checked', true)
 			}else{

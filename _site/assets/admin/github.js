@@ -54,9 +54,6 @@ function Api(params) {
 		path: 'users/' + firebase.auth().currentUser.uid,
 		action: function(snapshot){
 			var token = snapshot.val();
-			console.log(token)
-			console.log('params')
-			console.log(params)
 			$.ajax({
 				type: params.method,
 				url: params.url,
@@ -822,7 +819,6 @@ function Api(params) {
 		*/
 			function getCommit(par){
 				var url = 'repos/' + par.owner + '/' + par.repo + '/commits/' + par.sha;
-				console.log(url)
 				Api({
 					method: 'GET',
 					url: ApiRoot + url,
@@ -1176,7 +1172,6 @@ function Api(params) {
 					//If there is a link header in the response then the results are paginated so we'll re run the function for all the pages
 					if(xhr.getResponseHeader('Link')){
 						parseLinkHeader (xhr.getResponseHeader('Link'), function(linkHeader){
-							console.log('linkHeader: ' + linkHeader)
 							listComments('', '', action, '', '', linkHeader);
 						});
 					}

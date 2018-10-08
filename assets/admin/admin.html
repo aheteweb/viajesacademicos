@@ -217,13 +217,13 @@
 						</div>
 				  </div>
 					<div class="tab-pane fade" id="mhcamps" role="tabpanel" aria-labelledby="mhcamps-tab">
-						<div class="product-list">
+						<div class="product-list camps">
 							<span class="create btn btn-success btn-block" onclick="editSpecials('create', 'camps')"><i class="fas fa-plus"></i> Nuevo campamento</span>
 					  	<ul class="list-unstyled">
 							</ul>
 							<span class="create btn btn-success btn-block" onclick="editSpecials('create', 'camps')"><i class="fas fa-plus"></i> Nuevo campamento</span>
 						</div>
-						<div class="product-edit" data-editing style="display: none;">
+						<div class="product-edit camps" data-editing style="display: none;">
 							<label for="ptitle">Titulo</label>
 							<input type="text" class="form-control" id="ptitle" >
 							<br>
@@ -238,21 +238,24 @@
 								<img src="" alt="" class="product-preview">
 							</div>
 							<div class="product-action text-center">
-								<span class="btn btn-danger" onclick="toggleProducts()"><i class="fas fa-times"></i> Cerrar</span>
-								<span class="btn btn-success" onclick="saveProduct()"><i class="fas fa-check"></i> Guardar</span>
+								<span class="btn btn-danger" onclick="toggleProducts('camps')"><i class="fas fa-times"></i> Cerrar</span>
+								<span class="btn btn-success" onclick="saveProduct('_campamentos', this)"><i class="fas fa-check"></i> Guardar</span>
 							</div>
+							<div class="product-action text-center">
+								<a href="#" class="btn btn-info edit-page" target="_blank"><i class="fas fa-external-link-alt"></i> Editar el contenido de la pagina</a>
+							</div>							
 						</div>
 				  </div>	
 					<div class="tab-pane fade" id="mhpromos" role="tabpanel" aria-labelledby="mhpromos-tab">
-						<div class="product-list">
+						<div class="product-list promos">
 							<span class="create btn btn-success btn-block" onclick="editSpecials('create', 'promos')"><i class="fas fa-plus"></i> Nueva promocion</span>
 					  	<ul class="list-unstyled">
 							</ul>
 							<span class="create btn btn-success btn-block" onclick="editSpecials('create', 'promos')"><i class="fas fa-plus"></i> Nueva promocion</span>
 						</div>
-						<div class="product-edit" data-editing style="display: none;">
-							<label for="title-en">Titulo</label>
-							<input type="text" class="form-control" id="ptitle-en" >
+						<div class="product-edit promos" data-editing style="display: none;">
+							<label for="title">Titulo</label>
+							<input type="text" class="form-control" id="ptitle" >
 							<br>
 							<label for="pimage">Imagen principal</label>
 							<div class="input-group mb-3">
@@ -265,8 +268,11 @@
 								<img src="" alt="" class="product-preview">
 							</div>
 							<div class="product-action text-center">
-								<span class="btn btn-danger" onclick="toggleProducts()"><i class="fas fa-times"></i> Cerrar</span>
-								<span class="btn btn-success" onclick="saveProduct()"><i class="fas fa-check"></i> Guardar</span>
+								<span class="btn btn-danger" onclick="toggleProducts('promos')"><i class="fas fa-times"></i> Cerrar</span>
+								<span class="btn btn-success" onclick="saveProduct('_promociones', this)"><i class="fas fa-check"></i> Guardar</span>
+							</div>
+							<div class="product-action text-center">
+								<a href="#" class="btn btn-info edit-page" target="_blank"><i class="fas fa-external-link-alt"></i> Editar el contenido de la pagina</a>
 							</div>
 						</div>
 				  </div>				  			  
