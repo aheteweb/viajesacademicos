@@ -241,22 +241,22 @@ body[data-lang='en'] #mhContent *[data-lang="es"] {
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5; }
-  .admin-open #mhAdminpage #mhproducts .media {
+  .admin-open #mhAdminpage #mhcamps .media, .admin-open #mhAdminpage #mhpromos .media {
     margin-bottom: 10px;
     border-bottom: 1px solid #dedede;
     padding-bottom: 10px; }
-  .admin-open #mhAdminpage #mhproducts img {
+  .admin-open #mhAdminpage #mhcamps img, .admin-open #mhAdminpage #mhpromos img {
     max-width: 15%; }
-  .admin-open #mhAdminpage #mhproducts h5 {
+  .admin-open #mhAdminpage #mhcamps h5, .admin-open #mhAdminpage #mhpromos h5 {
     display: inline-block; }
-  .admin-open #mhAdminpage #mhproducts ul .badge {
+  .admin-open #mhAdminpage #mhcamps ul .badge, .admin-open #mhAdminpage #mhpromos ul .badge {
     cursor: pointer; }
-  .admin-open #mhAdminpage #mhproducts .product-list .create {
+  .admin-open #mhAdminpage #mhcamps .product-list .create, .admin-open #mhAdminpage #mhpromos .product-list .create {
     margin-bottom: 20px; }
-  .admin-open #mhAdminpage #mhproducts .product-list .btn-group .btn {
+  .admin-open #mhAdminpage #mhcamps .product-list .btn-group .btn, .admin-open #mhAdminpage #mhpromos .product-list .btn-group .btn {
     font-size: 12px;
     padding: 0 5px; }
-  .admin-open #mhAdminpage #mhproducts .product-action {
+  .admin-open #mhAdminpage #mhcamps .product-action, .admin-open #mhAdminpage #mhpromos .product-action {
     margin-top: 15px; }
 
 #adminTabContent {

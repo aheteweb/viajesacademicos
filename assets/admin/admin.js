@@ -928,10 +928,13 @@
 		});
 	
 	//Productsn
-		function populateProducts(){
-			$('#mhproducts ul').empty();
-			$.each(mH.products, function( index, value ) {
-				var productDetails = jsyaml.load($.trim(decodeContent(atob(mH.products[index])).split('---')[1]));
+		function populateSpecials(_type){
+			console.log(_type)
+			var listSelector = '#mh' + _type + ' ul';
+			var editFunctionParams = '&quot edit&quot, ' + _type;
+			$(listSelector).empty();
+			$.each(mH[_type], function( index, value ) {
+				var productDetails = jsyaml.load($.trim(decodeContent(atob(mH[_type][index])).split('---')[1]));
 				var product  = '<li class="media" data-file="' + index + '">';
 						product += '  <img class="mr-3 card" src="' + productDetails.image + '">';
 						product += '  <div class="media-body">';
@@ -944,20 +947,20 @@
 						product += '    	</span>';						
 						product += '    </h5> ';
 						product += '		<div class="btn-group">';
-						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteProduct(this)">';
+						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteSpecials(' + _type + ')">';
 						product += '		    <i class="fas fa-times"></i> Eliminar';
 						product += '		  </span>';
-						product += '		  <span class="btn btn-sm btn-info" onclick="editProduct(this)">';
+						product += '		  <span class="btn btn-sm btn-info" onclick="editSpecials('+ editFunctionParams + ')">';
 						product += '		    <i class="fas fa-edit"></i> Editar';
 						product += '		  </span>';
 						product += '		</div>';
 						product += '    <div>(<span class="scientific">' + productDetails.scientific + '</span>)</div>';
 						product += '  </div>';
 						product += '</li>';
-			  $('#mhproducts ul').append(product);
+			  $(listSelector).append(product);
 			});
 		}
-		function editProduct(clicked){
+		function editSpecials(clicked){
 			if($(clicked).hasClass('create')){
 				$('.product-edit').removeAttr('data-editing');
 				$('#ptitle-en').val('');
