@@ -1,0 +1,18 @@
+---
+layout: default
+title: 404
+---
+
+<div class="container text-center">
+	<h3>La pagina que estas buscando no existe</h3>
+	<h3>Quizas alguno de los siguientes links pueda serte util:</h3>
+	<ul class="list-unstyled">
+		{% for item in site.pages %}
+			{% if item.lang == 'en' and item.permalink != '/404.html' and item.title != 'admin' %}
+				<li class="nav-item">
+		  		<a class="nav-link" href="{{ item.permalink | prepend: site.url }}">{{ item.title | upcase }}</a>
+		  	</li>
+		  {% endif %}
+		{% endfor %}	
+	</ul>
+</div>

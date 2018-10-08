@@ -1,0 +1,58 @@
+---
+layout: default
+css:
+js:
+---
+<div id="admin-page" class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-md-7 user-actions">
+			<div class="logged-out d-none">
+				<h3 class="text-center">SIGN IN</h3>
+				<form action="#" onsubmit="fireSession(event)">
+					<div class="form-group">
+				    <label for="adminEmail">Email address</label>
+				    <div class="mail-alert alert alert-danger" role="alert" style="display: none;">mail can't be empty</div>
+				    <input type="email" class="form-control" id="adminEmail" placeholder="Enter email">
+				  </div>
+				  <div class="form-group">
+				    <label for="password">Password</label>
+				    <div class="pass-alert alert alert-danger" role="alert" style="display: none;">password can't be empty</div>
+				    <input type="password" class="form-control" id="password" placeholder="Password">
+				  </div>
+				  <div class="login-alert alert alert-danger" role="alert" style="display: none;"></div>
+				  <input type="submit" class="btn btn-primary btn-block" value="Sign In">
+				</form>
+		  </div>
+		  <div class="logged d-none">
+		  	<hr>
+		  	<br>
+		  	<div class="text-center">
+		  		<h3>Log Out</h3>
+		  		<div class="btn btn-primary" onclick="logOut()">Log Out</div>
+
+		  		<hr>
+					
+					<br>
+		  		<h3>Change password</h3>
+		  		<form action="#" onsubmit="updatePass(event)">
+						<div class="form-group">
+			  			<label for="oldpass">Current Password</label>
+			  			<input type="password" class="form-control" id="oldpass">
+							<div class="alert alert-danger old-pass-error d-none" role="alert">
+							</div>			  			
+		  			</div>		  			
+		  			<div class="form-group">
+			  			<label for="newpass">New Password (at least 6 characters)</label>
+			  			<input type="password" class="form-control" id="newpass">
+			  			<div class="alert alert-danger new-pass-error d-none" role="alert">
+							</div>
+							<div class="alert alert-success new-pass-success d-none" role="alert">
+							</div>
+		  			</div>
+		  			<input type="submit" class="btn btn-primary btn-block update-pass" value="Update" disabled>
+		  		</form>
+		  	</div>
+		  </div>
+		</div>
+	</div>
+</div>

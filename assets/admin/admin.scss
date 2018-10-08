@@ -1,0 +1,631 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+$admin-color: rgb(0,128,128);
+$admin-color-transparent: rgba(0,128,128, 0.9);
+$admin-color-light: lighten($admin-color, 40%);
+$admin-color-dark:  darken($admin-color, 10%);
+$admin-text-color: #fff;
+$admin-font-size: 14px;
+$transition: all .5s;
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+//ADMIN
+	//Make room for the admin bar
+		body {
+			padding-top: 40px;
+			.bold {
+				font-weight: 700;
+			}
+		}
+		#mhNavbar {
+			top: 37px;
+		}
+	//Display only the correct language
+		body[data-lang='es'] #mhContent *[data-lang="en"]{
+			display: none;
+		}
+		body[data-lang='en'] #mhContent *[data-lang="es"]{
+			display: none;
+		}
+		#mhContent.sortable {
+			padding-bottom: 50px;
+		}
+	//Option buttons
+		[data-mhsection] {
+			position: relative;
+			.mhOptions {
+				text-align: center;
+				display: none;
+				padding: 10px 0;
+				position: absolute;
+				width: 100%;
+				z-index: 1;
+				.btn-group {
+					-webkit-box-shadow: 0px 0px 10px 2px rgba(255,255,255,1);
+					-moz-box-shadow: 0px 0px 10px 2px rgba(255,255,255,1);
+					box-shadow: 0px 0px 10px 2px rgba(255,255,255,1);
+				}
+			}
+			&:hover {
+				.mhOptions {
+					display: block;
+				}
+			}	
+		}
+		.btn-outline-secondary:not(:disabled):not(.disabled).active {
+			color: #6c757d;
+			background-color: inherit;
+		}	
+	//Modal background
+		.modal-backdrop.show {
+			z-index: 1049;
+		}
+	//Nerver display editing buttons
+		.ct-ignition {
+			display: none!important;
+		}
+	//Change styles on editing
+		#mhEditing {
+			body {
+				margin-left: 20px;
+			}
+			#mhAdminbar {
+				.save, .stop {
+					display: inline-block;
+				}
+				.edit {
+					display: none;
+				}
+			}
+			#mhDragbar {
+				left: -200px;
+				.sections {
+					display: none;
+					img {
+						padding: 2px;
+						border-radius: 0; 
+					}
+				}
+				&.show {
+					left: 0;
+					.sections {
+						display: block;
+					}
+					.puller {
+						height: 30px;
+						background: $admin-color-dark;		
+					}
+					.push {
+						display: block;
+					}
+					.pull {
+						display: none;
+					}				
+				}
+			}
+			&.sections-open, &.admin-open {
+				body {
+					margin-left: 0;
+				}
+				#mhDragbar {
+					left: -220px;
+				}
+			}
+		}		
+	//Admin bar styles
+		#mhAdminbar {
+			background: $admin-color;
+			font-size: $admin-font-size;
+			padding: 0 1rem;
+			height: 37px;
+			*{
+				color: $admin-text-color;
+			}
+			.edit-buttons {
+				position: absolute;
+				right: 0;
+				a {
+					padding-left: 10px!important;
+					padding-right: 10px!important;
+				}
+				.save, .stop {
+					display: none;
+				}
+			}	
+		}
+	//Some divs inside adminHtml need to be hidden
+		#adminHtml {
+			> div {
+				display: none;
+			}
+		}
+	//Content preview style
+		.mhPreview {
+			padding-top: 50px;
+			font-size: 1.3rem;
+			text-align: justify;
+		}
+	//Draggable sections
+		#mhDragbar {
+			position: fixed;
+		  top: 37px;
+		  background: $admin-color;
+		  z-index: 1050;
+		  height: 100vh;
+		  color: $admin-text-color;
+		  padding: 5px 20px 5px 10px;
+		  padding-top: 30px;
+		  width: 220px;
+		  left: -220px;
+		  transition: $transition;
+		  .puller {
+			  position: absolute;
+			  top: 0;
+			  width: 100%;
+			  left: 0;
+			  cursor: pointer;
+			  height: 100vh;
+			  z-index: 99;
+				* {
+					position: absolute;
+					right: 0;
+					right: 1.5px;
+				  font-size: 30px;
+				}
+				.push {
+					display: none;
+				}
+			}
+			.sections {
+				height: calc(100vh - 67px);
+				overflow: auto;
+				padding-right: 2px;
+				padding-top: 10px;
+				width: 209px;
+				.section {
+					padding-bottom: 20px;
+				  border-bottom: 1px solid rgba(255,255,255,0.5);
+				  .title {
+						font-size: 1.1rem;
+					  margin: 5px 0;
+					  font-weight: bold;
+					}
+					img {
+						cursor: move;
+					}
+				}
+			}
+		}
+	//Admin page
+		#mhAdminpage, #mhSectionOptions {
+			position: absolute;
+	    top: -100vh;
+	    overflow: auto;
+	    width: 100%;
+	    height: 100vh;
+	    background: #fff;
+	    z-index: 1048;
+	    padding-top: 30px;
+	    font-size: 14px;
+	    transition: $transition;
+		}	
+		.admin-open {
+			body {
+				overflow: hidden;
+			}
+			#mhAdminpage {
+				position: fixed;
+				top: 0;
+				.fa-window-close {
+					position: fixed;
+			    top: 5px;
+			    right: 20px;
+			    font-size: 30px;
+			    opacity: 0.3;
+			    cursor: pointer;
+				}
+				.nav-tabs a,
+				.nav-tabs a:hover,
+				.nav-tabs a:focus {
+					color: $admin-color;
+				}
+				.tab-content {
+					padding: 15px;
+					border: 1px solid #dee2e6;
+			    border-top: none;				
+				}
+				/* Global options */
+					.repeated.short {
+						display: inline-block;
+				    background: #dee2e6;
+				    padding: 3px 10px;
+				    margin-right: 10px;
+				    margin-bottom: 10px;
+					}
+					.repeated.long {
+						display: block;
+				    background: #dee2e6;
+				    padding: 16px 10px 10px;
+				    margin-bottom: 10px;
+				    position: relative;
+					}		
+					.repeated.short .rm,
+					.input-group-append,
+					.repeated.long .rm {
+						cursor: pointer;
+					}
+					.repeated.long .rm {
+						position: absolute;
+				    top: 1px;
+				    right: 1px;
+					}
+				/* Pages */
+					.rm[data-page="index"] {
+						display: none;
+					}
+					.view[data-url="/"]	{
+						border-radius: .2rem;
+					}
+				/* Nav */
+					.nav-pages {
+						min-height: 300px;
+					}				
+					.all-pages {
+						.btn-group {
+							float: left!important;
+							margin-right: 5px;
+							.rm {
+								display: none;
+							}
+							.move {
+								border-radius: .2rem;
+							}
+						}
+					}
+				/* Images */
+					.mhImagesI {
+						.image {
+							display: inline-block;
+							position: relative;
+							&:before {
+								font-family: "Font Awesome 5 Free";
+						    font-weight: 900;
+						    content: "\f057";
+						    position: absolute;
+						    left: 0;
+						    top: 0;
+						    padding-top: calc(50% - 20px);
+						    padding-left: calc(50% - 10px);
+						    width: calc(100% - 5px);
+						    height: calc(100% - 5px);
+						    font-size: 20px;
+						    background: rgba(255,255,255,0.8);
+						    display: none;
+						    color: #dc3545;
+						 	}
+							&:hover:before {
+					    	cursor: pointer;
+					    	display: inline-block;
+					    }					 	
+						}
+					}
+					/* Upload images */
+						.current-folder {
+							margin-bottom: 10px;
+					    text-align: center;
+					    font-size: 18px;
+					    color: #666;
+					    border-bottom: 1px solid #e9ecef;
+						}
+						.dropzone {
+							min-height: 250px;
+						}
+						.path-lavel {
+							padding: 8px 12px;
+					    font-size: 1rem;
+					    font-weight: 600;
+					    line-height: 1.5;
+						}
+				//Products
+					#mhproducts {
+						.media {
+							margin-bottom: 10px;
+							border-bottom: 1px solid #dedede;
+							padding-bottom: 10px;
+						}
+						img {
+							max-width: 15%;
+						}
+						h5 {
+							display: inline-block;
+						}
+						ul .badge {
+							cursor: pointer;
+						}
+						.product-list {
+							.create {
+								margin-bottom: 20px;
+							}
+							.btn-group .btn {
+								font-size: 12px;
+								padding: 0 5px;
+							}
+						}
+						.product-action {
+							margin-top: 15px;
+						}
+					}
+			}
+		}
+		#adminTabContent {
+			position: relative;
+			min-height: 300px;
+		}
+	//Images
+		.mhImagesI {
+			img {
+				width: 150px;
+				height: 150px;
+				margin-right: 5px;
+				margin-bottom: 5px;
+			}
+		}
+		.mhImagesf {
+			border-bottom: 1px solid #e9ecef;
+			overflow-x: auto;
+	    white-space: nowrap;
+	    margin-bottom: 3px;
+	    display: inline-block;
+	    width: 100%;
+	    opacity: 0.5;
+	    span {
+				cursor: pointer;
+				border-right: 1px solid #e9ecef;
+		    padding: 0 5px;	
+		  }
+			.folderlist {
+				display: inline-block;
+				span:last-of-type {
+					border: none;
+				}
+			}
+			&[data-current-path="Home"] {
+				[data-path="Home"], .prev {
+					display: none;
+				}
+			}
+		}
+		#imagesModal {
+			font-size: 14px;
+			overflow: hidden;
+			.close {
+				padding: 0;
+				margin: 3px 0 0 0;
+			}
+			.modal-header {
+				padding-top: 7px;
+				padding-bottom: 7px;
+			}
+			.modal-dialog {
+				margin-top: 5px;
+				width: 90%;
+				max-width: 90%;
+			}
+			.modal-body {
+				padding-top: 1px;
+				overflow: auto;
+				min-height: calc(100vh - 95px);
+				max-height: calc(100vh - 95px);
+				.mhImagesf {
+					margin-bottom: 0;
+				}
+			}
+			.modal-footer {
+				padding: 0;
+			}
+			.current-folder {
+				margin-bottom: 10px;
+		    text-align: center;
+		    font-weight: bold;
+		    color: #666;
+		    border-bottom: 1px solid #e9ecef;
+		    margin-top: -6px;
+			}
+			.use {
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+			}
+			.uselected {
+		    border: 3px solid teal;
+		    background: rgba(0,128,128, 0.4);
+			}
+		}
+		.ui-sortable-helper {
+			//transform: scale(0.4);
+			//border: 1px solid red;
+			//object-position: 50% 0;
+		}
+		.ui-sortable-placeholder {
+			background: #e9ecef;
+			visibility: visible!important;
+			max-height: 250px;
+		}
+	//Sections screen
+		.sections-open {
+			body {
+				overflow: hidden;
+			}
+			#mhSectionOptions {
+				position: fixed;
+				top: 0;	
+				.actions {
+					position: fixed;
+			    top: 0;
+			    font-size: 30px;
+			    cursor: pointer;
+			    right: 15px;
+			    background: #fff;
+			    padding: 0 10px;
+					.fa-window-close {
+						color: #dc3545;
+					}
+					.fa-check-square {
+						color: #28a745;
+					}
+				}
+				.preview {
+					margin-bottom: 10px;
+					> div {
+						margin-top: 10px;
+					}
+					.mhOptions {
+						display: none!important;
+					}
+					[data-edit-image]:after {
+						content: "Cambiar imagen";
+						position:absolute;
+						width: 100%;
+						height: 100%;
+						background: rgba(255, 255, 255, 0.5);
+						text-align: center;
+						padding-top: 40%;
+						font-weight: bold;
+						font-size: 1.2rem;
+						cursor: pointer;
+					}
+					&[data-target="en"] {
+						[data-editable][data-lang="es"] {
+							display: none;
+						}
+					}
+					&[data-target="es"] {
+						[data-editable][data-lang="en"] {
+							display: none;
+						}
+					}
+					.change-image{
+						display: inline;
+						&:after {
+							content: 'Cambiar imagen';
+							position: absolute;
+					    font-weight: bold;
+					    margin: 0 15px;
+					    top: 0;
+					    left: 0;
+					    width: calc(100% - 30px);
+					    height: 100%;
+					    background: rgba(255, 255, 255, 0.8);
+					    text-align: center;
+					    padding-top: 30px;
+						}		
+					}							
+				}
+				.slider-edit {
+					.manipulate {
+						margin-bottom: 10px;
+						.btn {
+						  padding-top: 5px;
+						  padding-bottom: 5px;
+						 	font-size: 14px;
+						}
+					}
+					.slider {
+						.slide {
+							display: none;
+							&.active {
+								display: block;
+							}
+						}
+					}
+				}
+				.destacados-edit {
+					.card {
+						&:not(.active){
+							opacity: 0.1;
+						}
+						&.active .card-body {
+							top: 0;
+						}
+					}
+				}				
+			}	
+		}
+	//Sections
+		/* Header slider */
+			[data-mhsection="header_slider"] {
+				.slide-content {
+					height: calc(90vh - 63px - 37px);
+				}			
+			}
+		//Sections that display jekyll tags
+			.js-content + .jekyll-content {
+				display: none;
+			}
+		//Columns
+			#mhEditing {
+				[data-mhsection="columns_2"], [data-mhsection="columns_3"] {
+					> .container > .row > div {
+						border: 1px dashed;
+						min-height: 250px;
+					}
+					> .mhOptions {
+						top: -30px;
+						.options {
+							display: none!important;
+						}
+					}
+				}
+				[data-mhsection="products"] {
+					.mhOptions {
+						.options {
+							display: none!important;
+						}
+					}				
+				}
+			}
+		//Map 
+			.map-edit {
+				textarea {
+					width: 100%;
+				}
+			}
+		//Contact
+			.contact-edit {
+				label {
+					font-weight: bold;
+					margin-right: 5px;
+				}
+			}
+		//hr
+			[data-mhsection="hr"] {
+				.mhOptions {
+					margin-top: -25px;
+					.options {
+						display: none;
+					}
+				}
+			}
+
+	.pad {
+		margin-top: 50px;
+		margin-bottom: 50px;
+	}
+
+.ce-element--type-image {
+	margin-left: 0;
+	margin-right: 0;
+	&.center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

@@ -1,0 +1,27 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+%vertical-rhythm {//necessary for syntax-highlighting.scss
+  margin-bottom: 15px;
+}
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+$brand    : #009EE5;
+$gray     : #6c757d;
+$gray_dark: #343a40;
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+				"bootstrap",
+        "base",
+        "sections",
+        "syntax-highlighting"
+;

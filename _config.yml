@@ -1,0 +1,25 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Asesoría en estudios internacionales
+description: En Academic And Language tenemos más de 17 años de experiencia y contamos con personal especializado que le guiará en todo lo relacionado con alojamiento, visa, boleto aéreo y todos los detalles necesarios para hacer la elección del curso, destino e instituto que más le conviene.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://viajesacademicos.com.ve" # the base hostname & protocol for your site
+
+# Global config
+email     : viajesacademicos721@gmail.com
+phones    : ["+58 4166323456", "+58 2124191663"]
+address   : Calle Isla Margarita, Quinta Trinidad, Cumbres de Curumo Caracas, Venezuela 1080
+twitter   : https://twitter.com/viajeacademico
+facebook  : https://www.facebook.com/Tu-Viaje-Academico-757825661060637/
+instagram : ""
+production: false
+collections:
+  - specials
+# Build settings
+markdown: kramdown

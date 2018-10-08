@@ -1,0 +1,575 @@
+<nav id="mhAdminbar" class="navbar navbar-expand navbar-light fixed-top">
+  <div class="navbar-collapse">
+  	<ul class="navbar-nav">
+  		<li class="nav-item">
+        <a class="nav-link" href="#" data-tab="mhoptions" onclick="populateConfig()"><i class="fas fa-globe"></i> Opciones</a>
+      </li>
+			<li class="nav-item">
+        <a class="nav-link" href="#" data-tab="mhpages" onclick="populateInternalPages('pages')"><i class="far fa-file"></i> Páginas Internas</a>
+      </li>	
+			<li class="nav-item">
+        <a class="nav-link" href="#" data-tab="mhnav" onclick="populateNavigation()"><i class="fas fa-bars"></i> Navegación</a>
+      </li>	
+			<li class="nav-item">
+        <a class="nav-link" href="#" data-tab="mhimages" onclick="openImages({folder: 'Home', element: '#adminTabContent'})"><i class="far fa-images"></i> Imágenes</a>
+      </li> 
+			<li class="nav-item">
+        <a class="nav-link" href="#" data-tab="mhproducts" onclick="populateProducts()"><i class="fas fa-th-list"></i> Productos</a>
+      </li>      
+      <li class="nav-item">
+        <a class="nav-link" href="/admin"><i class="fas fa-user"></i> Sesion</a>
+      </li>                     			       		
+  	</ul>
+  	<div class="edit-buttons">
+			<ul class="navbar-nav">
+	  		<li class="nav-item bg-info edit">
+	        <a class="nav-link" href="#" onclick="edit()"><i class="fas fa-pencil-alt"></i></a>
+	      </li>
+				<li class="nav-item bg-success save">
+	        <a class="nav-link" href="#" onclick="save()"><i class="fas fa-check"></i></a>
+	      </li>	      
+				<li class="nav-item bg-danger stop">
+	        <a class="nav-link" href="#" onclick="stop()"><i class="fas fa-times"></i></a>
+	      </li>	      
+			</ul>  		
+  	</div>
+	</div>
+</nav>
+
+<div id="mhDragbar">
+	<div class="puller">
+		<div class="pull"><i class="fas fa-angle-right"></i></div>
+		<div class="push"><i class="fas fa-angle-left"></i></div>
+	</div>
+	<div class="sections"></div>
+</div>
+
+<div id="mhAdminpage">
+	<i class="far fa-window-close"></i>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-9">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				  <li class="nav-item">
+				    <a class="nav-link" id="mhoptions-tab" data-toggle="tab" href="#mhoptions" role="tab" aria-controls="mhoptions" aria-selected="false" onclick="populateConfig()"><i class="fas fa-globe"></i> Opciones</a></a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="mhpages-tab" data-toggle="tab" href="#mhpages" role="tab" aria-controls="mhpages" aria-selected="false" onclick="populateInternalPages('pages')"><i class="far fa-file"></i> Páginas Internas</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="mhnav-tab" data-toggle="tab" href="#mhnav" role="tab" aria-controls="mhnav" aria-selected="false" onclick="populateInternalPages('nav')"><i class="fas fa-bars"></i> Navegación</a>
+				  </li>
+					<li class="nav-item">
+				    <a class="nav-link" id="mhimages-tab" data-toggle="tab" href="#mhimages" role="tab" aria-controls="mhimages" aria-selected="false" onclick="openImages({folder: 'Home', element: '#adminTabContent'})"><i class="far fa-images"></i> Imágenes</a>
+				  </li>
+					<li class="nav-item">
+				    <a class="nav-link" id="mhproducts-tab" data-toggle="tab" href="#mhproducts" role="tab" aria-controls="mhproducts" aria-selected="false" onclick="populateProducts()"><i class="fas fa-th-list"></i> Productos</a>
+				  </li>				    
+				</ul>
+
+				<div class="tab-content" id="adminTabContent">
+				  <div class="tab-pane fade" id="mhoptions" role="tabpanel" aria-labelledby="mhoptions-tab">
+				  	<div class="config">
+				  		<div class="row">
+				  			<div class="col-md-12">
+				  				<h4>Título:</h4>
+									<div class="form-group">
+								    <input type="text" class="form-control" id="title" >
+								 	</div>				  				
+				  			</div>
+				  		</div>
+
+						 	<hr>
+
+						 	<div class="row">
+								<div class="col-md-12">
+				  				<h4>Descripción:</h4>
+									<div class="form-group">
+								    <textarea class="form-control" id="desc" rows="3"></textarea>
+								  </div>				 			
+				  			</div>						 		
+						 	</div>
+
+						 	<hr>
+
+							<div class="form-group mails">
+								<label class="h4" for="email">Correos:</label>
+								<div class="mail-list"></div>
+						    <div class="input-group mb-3">
+								  <input type="text" class="form-control" id="mhConfigMail" placeholder="Agregar correo">
+								  <div class="input-group-append add">
+								    <span class="add-mail input-group-text"><i class="fas fa-plus"></i></span>
+								  </div>
+								</div>
+						  </div>
+
+						  <hr>
+							
+							<div class="form-group addresses">
+								<label class="h4" for="address">Direcciones:</label><br>
+								<div class="address-list"></div>
+								<div class="input-group mb-3">
+								  <textarea class="form-control" id="mhConfigAddress" placeholder="Agregar dirección"></textarea>
+								  <div class="input-group-append add">
+								    <span class="input-group-text"><i class="fas fa-plus"></i></span>
+								  </div>
+								</div>								
+							</div>
+							
+							<hr>
+								
+							<div class="form-group phones">
+								<label class="h4" for="emails">Telefonos:</label>
+								<div class="phone-list"></div>
+						    <div class="input-group mb-3">
+								  <input type="text" class="form-control" id="mhConfigPhone" placeholder="Agregar telefono">
+								  <div class="input-group-append add">
+								    <span class="add-phone input-group-text"><i class="fas fa-plus"></i></span>
+								  </div>
+								</div>
+						  </div>							
+						  
+						  <hr>
+
+							<div>
+								<h4>Redes sociales:</h4>
+								<div class="form-group">
+							  	<label for="facebook">Facebook:</label>
+							    <input type="text" class="form-control" id="facebook">
+								</div>
+								<div class="form-group">
+							  	<label for="twitter">Twitter:</label>
+							    <input type="text" class="form-control" id="twitter">
+								</div>
+								<div class="form-group">
+							  	<label for="instagram">Instagram:</label>
+							    <input type="text" class="form-control" id="instagram">
+								</div>																					  
+							</div>
+
+						  <hr>
+
+						  <span class="btn btn-block btn-success save-config">Guardar</span>
+						</div>
+				  </div>
+				  <div class="tab-pane fade" id="mhpages" role="tabpanel" aria-labelledby="mhpages-tab">
+				  	<ul class="list-group list-pages"></ul>
+						<br>
+						<span class="btn btn-success btn-sm create-page">Crear página</span>
+						<div class="container new-page d-none">
+							<hr>
+							<h3>Nueva pagina</h3>
+							<h4>Título:</h4>
+				  		<input type="text" class="form-control" id="pagetitle" >	
+				  		<span class="btn btn-block btn-success save-page">Crear</span>						
+						</div>
+				  </div>
+				  <div class="tab-pane fade" id="mhnav" role="tabpanel" aria-labelledby="mhnav-tab">
+				  	<div class="row">
+				  		<div class="col-6">
+				  			<h4>Páginas en navegación</h4>
+								<ul class="list-group nav-pages"></ul>				  			
+				  		</div>
+				  		<div class="col-6">
+				  			<h4>Todas las páginas: <span class="smaller">Arrastre las paginas que desee agregar a la navegacion principal.</span></h4>
+								<ul class="list-group all-pages"></ul>					  			
+				  		</div>
+				  		<div class="col-12">
+				  			<span class="btn btn-block btn-success save-nav">Guardar</span>
+				  		</div>
+				  	</div>
+				  </div>
+				  <div class="tab-pane fade" id="mhimages" role="tabpanel" aria-labelledby="mhimages-tab">
+				  	<div class="mhListImages">
+							<div class="mhImagesf">
+								<span data-path="Home">
+									<i class="fas fa-home"></i>
+									Home
+								</span>	
+								<span class="prev">
+									<i class="fas fa-arrow-up"></i>
+									Prev
+								</span>
+								<div class="folderlist"></div>
+							</div>
+							<div class="current-folder"></div>
+							<div class="mhImagesI"></div>
+							<span class="btn btn-block btn-success upload-images">Subir imagen(es)</span>
+						</div>
+						<div class="mhUploadImages d-none">
+							<div class="ruta">
+								<div class="input-group mb-3">
+								  <div class="input-group-prepend">
+								  	<span class="path-lavel">Ruta:</span>
+								    <span class="input-group-text">Home/</span>
+								  </div>
+								  <input type="text" class="form-control" id="uploadPath">
+								</div>
+							</div>
+							<div id="dropzone-area" class="dropzone"></div>
+							<span class="btn btn-outline-secondary hide-dropzone"><i class="fas fa-long-arrow-alt-left"></i> Volver</span>
+						</div>
+				  </div>
+					<div class="tab-pane fade" id="mhproducts" role="tabpanel" aria-labelledby="mhproducts-tab">
+						<div class="product-list">
+							<span class="create btn btn-success btn-block" onclick="editProduct(this)"><i class="fas fa-plus"></i> Nuevo producto</span>
+					  	<ul class="list-unstyled">
+							</ul>
+							<span class="create btn btn-success btn-block" onclick="editProduct(this)"><i class="fas fa-plus"></i> Nuevo producto</span>
+						</div>
+						<div class="product-edit" data-editing style="display: none;">
+							<div class="row">
+								<div class="col-md-6">
+								  <div class="form-group">
+								    <label for="title-en">Titulo (EN)</label>
+								    <input type="text" class="form-control" id="ptitle-en" >
+								 	</div>
+				  			</div>
+				  			<div class="col-md-6">
+									<div class="form-group">
+								    <label for="title-es">Titulo (ES)</label>
+								    <input type="text" class="form-control" id="ptitle-es" >
+								 	</div>		  				
+				  			</div>
+								<div class="col-md-6">
+									<div class="form-group">
+								    <label for="title-es">Nombre cientifico</label>
+								    <input type="text" class="form-control" id="pscientific" >
+								 	</div>		  				
+				  			</div>
+								<div class="col-md-6">
+									<label for="title-es">Imagen</label>
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" id="pimage">
+									  <div class="input-group-append">
+									    <button class="btn btn-outline-secondary" type="button" data-image data-target=".product-preview"><i class="fas fa-search"></i></button>
+									  </div>
+									</div>	  				
+				  			</div>				  						  											
+							</div>
+							<div class="text-center">
+								<img src="" alt="" class="product-preview">
+							</div>
+							<div class="product-action text-center">
+								<span class="btn btn-danger" onclick="toggleProducts()"><i class="fas fa-times"></i> Cerrar</span>
+								<span class="btn btn-success" onclick="saveProduct()"><i class="fas fa-check"></i> Guardar</span>
+							</div>
+						</div>
+				  </div>				  
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="mhSectionOptions">
+	<div class="actions">
+		<i class="action far fa-check-square" onclick="saveSection()"></i>
+		<i class="action far fa-window-close" onclick="closeSection()"></i>
+	</div>
+	<div class="container">
+		<div class="preview"></div>
+	</div>
+</div>
+
+<div id="imagesModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Images</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" data-current-path="Home">
+				<div class="mhListImages">
+					<div class="mhImagesf">
+						<span data-path="Home">
+							<i class="fas fa-home"></i>
+							Home
+						</span>	
+						<span class="prev">
+							<i class="fas fa-arrow-up"></i>
+							Prev
+						</span>
+						<div class="folderlist"></div>
+					</div>
+					<div class="current-folder"></div>
+					<div class="mhImagesI"></div>
+				</div>
+			</div>
+      <div class="modal-footer">
+      	<span class="btn btn-block btn-success use" style="visibility: hidden;">Usar imagen(es)</span>
+      </div>
+    </div>
+  </div>
+</div>	
+
+<div id="adminHtml">
+	<div class="mhOptions">
+		<div class="btn-group btn-group-sm" role="group" onclick="" aria-label="Options">
+			<span class="options btn xs btn-info" onclick="editSection($(this).closest('[data-options]'))"><i class="fas fa-pencil-alt"></i></span>
+			<span class="move btn xs btn-info"><i class="fas fa-arrows-alt"></i></span>
+			<span class="delete btn xs btn-info" onclick="removeSection($(this).closest('[data-options]'))"><i class="fas fa-minus-circle"></i></span>
+		</div>
+	</div>
+
+	<div class="mhPreview">
+		<div class="container">
+			Para comenzar a editar esta pagina haz click en boton <img src="https://res.cloudinary.com/aconsa/image/upload/v1522352151/mhadmin/edit-button.jpg" style="width:35px;"> en la esquina superior derecha, luego comienza a agregar secciones arrastrandolas desde la barra lateral que se mostrara a la izquierda.
+		</div>
+	</div>
+
+	<div id="toSave">
+		<div class="en"></div>
+		<div class="es"></div>
+	</div>
+
+	<div class="slider-edit">
+
+		<div class="bold">
+			Ancho del slider:
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="slider-width" id="content">
+		  <label class="form-check-label" for="content">Ancho del contenido</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="slider-width" id="full">
+		  <label class="form-check-label" for="full">Ancho completo</label>
+		</div>
+		
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Slide image</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .slide.active .bg"><i class="fas fa-search"></i></button>
+		  </div>
+		</div>
+
+		<div class="manipulate d-flex justify-content-between">
+			<div class="btn-group btn-group-toggle change-slide" data-toggle="buttons">
+				<span class="btn btn-outline-secondary" onclick="changeSlide('prev')"><i class="fas fa-angle-left"></i></span>
+				<span class="btn btn-outline-secondary" onclick="changeSlide('next')"><i class="fas fa-angle-right"></i></span>
+			</div>
+			
+			<h4>Slide Nro. <span class="number"></span></h4>
+			
+			<div class="btn-group btn-group-toggle change-slide" data-toggle="buttons">
+				<span class="btn btn-danger rm"><i class="fas fa-times"></i> Eliminar</span>
+				<span class="btn btn-info add"><i class="fas fa-plus"></i> Añadir</span>
+			</div>			
+		</div>
+	</div>
+
+	<div class="gallery-edit">
+		<!-- <div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Imagen de fondo:</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="rm-image btn btn-outline-danger" type="button" data-target=".preview .bg"><i class="fas fa-times"></i></button>
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .bg"><i class="fas fa-search"></i></button>
+		  </div>
+		</div> -->
+		
+		<div class="bold">
+			Posicion del texto:
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="position" id="izquierda" value="left">
+		  <label class="form-check-label" for="izquierda">Izquierda</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="position" id="derecha" value="right">
+		  <label class="form-check-label" for="derecha">Derecha</label>
+		</div>
+
+		<div class="bold">
+			Primera imagen:
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="firstImage" id="destacada" value="big">
+		  <label class="form-check-label" for="destacada">Destacada</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="firstImage" id="normal" value="small">
+		  <label class="form-check-label" for="normal">Normal</label>
+		</div>
+		<br>
+		<button type="button" class="gallery-images btn btn-info btn-sm">Seleccionar imagenes</button>
+		<hr>
+	</div>
+
+	<div class="page-title-edit">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Imagen de fondo:</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="rm-image btn btn-outline-danger" type="button" data-target=".preview .bg"><i class="fas fa-times"></i></button>
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .bg"><i class="fas fa-search"></i></button>
+		  </div>
+		</div>
+	</div>	
+
+	<div class="image-text-edit">
+		<!-- <div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Imagen de fondo:</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="rm-image btn btn-outline-danger" type="button" data-target=".preview .bg"><i class="fas fa-times"></i></button>
+		    <button class="search-image btn btn-outline-secondary" type="button" data-image data-target=".preview .bg"><i class="fas fa-search"></i></button>
+		  </div>
+		</div> -->
+		
+		<div class="bold">
+			Posicion del texto:
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="position" id="izquierda" value="left">
+		  <label class="form-check-label" for="izquierda">Izquierda</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input" type="radio" name="position" id="derecha" value="right">
+		  <label class="form-check-label" for="derecha">Derecha</label>
+		</div>
+		<hr>
+	</div>	
+
+	<div class="destacados-edit">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Box image</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .card.active"><i class="fas fa-search"></i></button>
+		  </div>
+		</div>
+
+		<div class="manipulate d-flex justify-content-between">
+			<div class="btn-group btn-group-toggle change-slide" data-toggle="buttons">
+				<span class="btn btn-outline-secondary" onclick="changeDestacado('prev')"><i class="fas fa-angle-left"></i></span>
+				<span class="btn btn-outline-secondary" onclick="changeDestacado('next')"><i class="fas fa-angle-right"></i></span>
+			</div>
+			
+			<h4>Destacado Nro. <span class="number"></span></h4>
+		</div>				
+		<hr>
+	</div>
+
+	<div class="productos-edit">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="">Imagen de fondo:</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="rm-image btn btn-outline-danger" type="button" data-target=".preview .bg"><i class="fas fa-times"></i></button>
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .bg"><i class="fas fa-search"></i></button>
+		  </div>
+		</div>		
+	</div>
+
+	<div class="jekyll-products-preview">
+		{% assign halfproducts = site.products | size | divided_by: 2 %}
+		<div class="col-md first">
+			<ul>
+				{% for item in site.products limit:halfproducts %}
+					<li data-slide="n{{ forloop.index }}" data-scientific="{{ item.scientific }}" data-img="{{ item.image }}">
+						{% if page.lang == "en" %}{{ item.title }}{% else %}{{ item.titulo }}{% endif %} <i class="fas fa-search-plus"></i>
+					</li>
+				{% endfor %}	    		
+			</ul>					
+  	</div>
+  	<div class="col-md second">
+			<ul>
+				{% for item in site.products offset:halfproducts %}
+					<li data-slide="n{{ forloop.index | plus:10 }}" data-scientific="{{ item.scientific }}" data-img="{{ item.image }}">
+						{% if page.lang == "en" %}{{ item.title }}{% else %}{{ item.titulo }}{% endif %} <i class="fas fa-search-plus"></i>
+					</li>						
+  			{% endfor %}  	    		
+			</ul>					
+  	</div>	
+	</div>
+
+	<div class="jekyll-products">
+		{% for item in site.products %}
+			<div class="col-lg-3 col-md-4 col-sm-6">
+				<div class="card">
+					<div class="card-header">{% if page.lang == "en" %}{{ item.title }}{% else %}{{ item.titulo }}{% endif %}</div>
+					<div class="card-body">
+						<img src="{{ item.image }}" class="img-fluid" alt="{% if page.lang == &quot;en&quot; %}{{ item.title }}{% else %}{{ item.titulo }}{% endif %}">
+					</div>
+					<div class="card-footer">
+						<p><b>{% if page.lang == "en" %}Scientific name{% else %}Nombre cientifico{% endif %}: </b>{{ item.scientific }}</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}			
+	</div>
+	
+	<div class="map-edit">
+		<label for="map"><b>Codigo del mapa:</b> <small>Pegar el codigo del mapa generado por google en el siguiente recuadro. (guiarse por el ejemplo que se muestra)</small></label><br>
+		<textarea rows="6" id="map" name="map" placeholder="<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11097.858610013402!2d-64.15330605390214!3d10.4465088339566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c3271ced8057859%3A0xd9796d67be3007d2!2sCarretera+A+Cumanacoa%2C+Cuman%C3%A1+6101%2C+Sucre!5e0!3m2!1sen!2sve!4v1520715801192' width='600' height='450' frameborder='0' style='border:0' allowfullscreen></iframe>"></textarea>	
+	</div>
+
+	<div class="contact-edit">
+		<div class="form-check form-check-inline">
+		  <label class="form-check-label" for="address-check">Mostrar direccion:</label>
+		  <input class="form-check-input" type="checkbox" name="address" id="address-check" value="show">
+		</div>
+		<div class="form-check form-check-inline">
+		  <label class="form-check-label" for="phone-check">Mostrar telefonos:</label>
+		  <input class="form-check-input" type="checkbox" name="phone" id="phone-check" value="show">
+		</div>
+		<div class="form-check form-check-inline">
+		  <label class="form-check-label" for="mail-check">Mostrar correos:</label>
+		  <input class="form-check-input" type="checkbox" name="mail" id="mail-check" value="show">
+		</div>
+		<hr>					
+	</div>
+
+	<div class="session-actions">
+		<ul class="session-tabs nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="pass-tab" data-toggle="tab" href="#passTab" role="tab" aria-controls="passTab" aria-selected="true">Change Password</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="logout-tab" data-toggle="tab" href="#logoutTab" role="tab" aria-controls="logoutTab" aria-selected="false">Log Out</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="passTab" role="tabpanel" aria-labelledby="pass-tab">
+				<div class="form-group">
+			    <label for="current-pass">Current Password</label>
+			    <div class="current-alert alert alert-danger" role="alert" style="display: none;">Field can't be empty.</div>
+			    <input type="password" class="form-control" id="current-pass" placeholder="Current Password">
+			  </div>
+				<div class="form-group">
+			    <label for="new-pass">New Password</label>
+			    <div class="new-alert alert alert-danger" role="alert" style="display: none;">Field can't be empty.</div>
+			    <input type="password" class="form-control" id="new-pass" placeholder="New Password">
+			  </div>
+				<div class="form-group">
+			    <label for="confirm-pass">Confirm new Password</label>
+			    <div class="confirm-alert alert alert-danger" role="alert" style="display: none;"></div>
+			    <input type="password" class="form-control" id="confirm-pass" placeholder="Confirm new Password">
+			  </div>
+			  <div class="change-alert alert alert-danger" role="alert" style="display: none;"></div>
+			  <div class="success-alert alert alert-success" role="alert" style="display: none;">Password changed successfully.</div>
+			  <button class="btn change btn-primary btn-block" onclick="changePass()">Change password</button>		  	
+		  </div>
+		  <div class="tab-pane fade" id="logoutTab" role="tabpanel" aria-labelledby="logout-tab">
+				<button class="btn btn-default btn-block" onclick="logOut()">Sign out</button>
+		  </div>
+		</div>		
+	</div>
+</div>

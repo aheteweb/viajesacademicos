@@ -1,0 +1,182 @@
+//Dropdown toggles display icons at the side of text, if it's not flex then this icon goes down the text when there's no more space, this makes the icon stay in place even if there's no more space for it
+	.dropdown-toggle {
+		display: flex;
+		align-items:center;
+	}
+
+//Make container 95% width from 992px down
+	@media(max-width: 992px){
+		.container {
+			max-width: 95%;
+		}
+	}
+
+body {
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-weight: 400;
+	color: $gray-dark;
+}
+.lead {
+	font-weight: 400;
+}
+.bold {
+	font-weight: 700;
+}
+.quote {
+	padding: 0.5em 1em;
+	font-size: 1.5em;
+	font-style: italic;
+	border-left: 1px solid $brand;
+	margin-bottom: 2em;
+}
+
+#mhContent {
+	min-height: 400px;
+	[data-editable] img {
+		height: auto!important
+	}
+	img {
+		max-width: 100%!important;
+		&.center {
+			display: inherit;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+//LOADER
+	body > .mhloading {
+		position: fixed;
+		height: 100vh;
+	}
+	.mhloading {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		background: rgba(0,128,128, 0.9);
+		color: #fff;
+		top: 0;
+		left: 0;
+		z-index: 100000;
+		.icon {
+			position: absolute;
+		  font-size: 5rem;
+		  @include vertical-align();
+		}	
+		&.element	{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+		}
+	}		
+
+
+//NAVIGATION
+	//Brand-bar
+		.brand_bar {
+			position: relative;
+			a {
+				color: $gray;
+			}
+			i {
+				color: $brand;
+				font-size: 1.2em;
+			}
+			.email, .phone_social {
+				position: absolute;
+				left    : 0;
+				top     : 40px;
+				span {
+					font-size: 0.9em;
+				}
+			}
+			.email {
+				margin-right: 10px;
+			}
+			.logo {
+				display: inline-block;
+				margin: 5px 10px;
+				margin-left: calc(50% - 50px)
+			}
+			.phone_social {
+				left : auto;
+				right: 0;
+				.social	{
+					display: inline-block;
+			    border: 1px solid $brand;
+			    border-radius: 3px;
+			    padding: 0.4em 0.5em;
+			    line-height: 1em;
+				}
+			}
+			&.just-logo {
+				.email, .phone_social {
+					display: none;
+				}
+			}
+			.menu-toggler {
+				display: none;
+			}
+		}
+	//Main-nav
+		nav {
+			.navbar-nav {
+				display: flex;
+				width: 100%;
+				color: $gray;
+				li {
+					flex-grow: 1;
+					text-align: center;
+				}
+			}
+			.nav-item.active {
+				border-top: 3px solid $brand;
+				border-bottom: 3px solid $brand;
+				font-weight: bold;
+			}
+		}
+	.collapsed-menu {
+		.brand_bar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.email, .phone_social {
+				display: none;
+			}
+			.logo {
+				margin: 5px 10px 0 0;
+				img {
+					max-width: 100px;
+				}
+			}
+			.menu-toggler {
+				display: inline-block;
+				i {
+					color: #fff;
+				}
+			}
+		}
+		.navbar-collapse:not(.show) {
+			display: none!important;
+		}
+		.navbar-nav {
+			flex-direction: column;
+		}
+	}
+
+//FOOTER
+	.site-footer {
+		padding-top: 2em;
+		background: #011e2f;
+		color: #fff;
+		.footer-text {
+			margin-bottom: 2em;
+		}
+		.copy {
+			background: #00090e;
+			font-size: 0.8em;
+		}
+	}

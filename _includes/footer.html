@@ -1,0 +1,27 @@
+<footer class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 footer-text">
+				En Academic And Language tenemos mas de 17 años de experiencia y contamos con personal especializado que le guiará en todo lo relacionado con alojamiento, visa, boleto aéreo y todos los detalles necesarios para hacer la elección del curso, destino e instituto que más le conviene.
+			</div>
+			<div class="col-md-6 footer-text">
+				<i class="fas fa-phone-square"></i> 
+						{% for phone in site.phones %}
+							{% assign index = forloop.index | times: 1 %}
+							{% assign length = site.phones | size | times: 1 %}
+							{{ phone }}
+							{% if index != length %}
+								/
+							{% endif %}
+						{% endfor %}<br>
+				<i class="fas fa-envelope-square"></i>  {{ site.email }}<br>
+				<i class="fas fa-map-marker-alt"></i> {{ site.address }}
+			</div>
+		</div>
+	</div>
+	<div class="copy">
+		<div class="container">
+			Academic and Language Travel MR, C.A RIF: J-402238444, Todos los derechos reservados &copy;
+		</div>
+	</div>
+</footer>
