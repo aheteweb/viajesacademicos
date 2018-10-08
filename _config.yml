@@ -23,3 +23,8 @@ collections:
   - specials
 # Build settings
 markdown: kramdown
+collections:
+  campamentos:
+    output: true
+  promociones:
+    output: true

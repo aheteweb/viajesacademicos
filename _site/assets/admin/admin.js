@@ -931,7 +931,7 @@
 		function populateSpecials(_type){
 			console.log(_type)
 			var listSelector = '#mh' + _type + ' ul';
-			var editFunctionParams = '&quot edit&quot, ' + _type;
+			var editFunctionParams = '&quot edit&quot, &quot ' + _type + '&quot';
 			$(listSelector).empty();
 			$.each(mH[_type], function( index, value ) {
 				var productDetails = jsyaml.load($.trim(decodeContent(atob(mH[_type][index])).split('---')[1]));
@@ -939,18 +939,15 @@
 						product += '  <img class="mr-3 card" src="' + productDetails.image + '">';
 						product += '  <div class="media-body">';
 						product += '    <h5 class="mt-0 mb-1">';
-						product += '    	<span class="en">';
+						product += '    	<span class="title">';
 						product += 					productDetails.title;
 						product += '    	</span> / ';
-						product += '    	<span class="es">';
-						product += 					productDetails.titulo;
-						product += '    	</span>';						
 						product += '    </h5> ';
 						product += '		<div class="btn-group">';
 						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteSpecials(' + _type + ')">';
 						product += '		    <i class="fas fa-times"></i> Eliminar';
 						product += '		  </span>';
-						product += '		  <span class="btn btn-sm btn-info" onclick="editSpecials('+ editFunctionParams + ')">';
+						product += '		  <span class="btn btn-sm btn-info" onclick="editSpecials('+ editFunctionParams + ', this)">';
 						product += '		    <i class="fas fa-edit"></i> Editar';
 						product += '		  </span>';
 						product += '		</div>';
@@ -960,27 +957,25 @@
 			  $(listSelector).append(product);
 			});
 		}
-		function editSpecials(clicked){
-			if($(clicked).hasClass('create')){
+
+		function editSpecials(_action, _type, _clicked){
+			console.log(_clicked)
+			_action = _action.trim();
+			_type = _type.trim();
+			if(_action === 'create'){
 				$('.product-edit').removeAttr('data-editing');
-				$('#ptitle-en').val('');
-				$('#ptitle-es').val('');
-				$('#pscientific').val('');
+				$('#ptitle').val('');
 				$('#pimage').val('');
 				$('.product-preview').attr('src', '');
 				toggleProducts();
 			}else{
-				var fileName = $(clicked).closest('.media').attr('data-file');
-				var image = $(clicked).closest('.media').find('img').attr('src');
+				var fileName = $(_clicked).closest('.media').attr('data-file');
+				var image = $(_clicked).closest('.media').find('img').attr('src');
 				var imgName = image.lastIndexOf('/');
 						imgName = image.substring(imgName + 1);			
-				var title = $(clicked).closest('.media').find('.en').text();
-				var titulo = $(clicked).closest('.media').find('.es').text();
-				var scientific = $(clicked).closest('.media').find('.scientific').text();
+				var title = $(_clicked).closest('.media').find('.title').text();
 				$('.product-edit').attr('data-editing', fileName);
-				$('#ptitle-en').val(title);
-				$('#ptitle-es').val(titulo);
-				$('#pscientific').val(scientific);
+				$('#ptitle').val(title);
 				$('#pimage').val(imgName);
 				$('.product-preview').attr('src', image);
 				toggleProducts()
