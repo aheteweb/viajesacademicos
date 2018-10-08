@@ -1,5 +1,4 @@
 var ApiRoot = 'https://api.github.com/';
-console.log('github loaded')
 /*
 	PARAMETERS:
 
