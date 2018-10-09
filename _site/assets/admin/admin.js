@@ -1038,7 +1038,7 @@
 
 					mH[_type][fileName] = fileContent;
 					
-					if($('.product-edit').attr('data-editing')){
+					if($(_clicked).closest('.product-edit').attr('data-editing')){
 						updateFile({
 							owner: gOwner,
 							repo: gRepo,
