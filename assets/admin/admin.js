@@ -936,7 +936,7 @@
 						product += '  <img class="mr-3 card" src="' + productDetails.image + '">';
 						product += '  <div class="media-body">';
 						product += '    <h5 class="mt-0 mb-1">';
-						product += '    	<span class="title" data-title="' + productDetails.title + '">';
+						product += '    	<span class="title">';
 						product += 					productDetails.title;
 						product += '    	</span>';
 						product += '    </h5> ';
@@ -1005,6 +1005,7 @@
 			///
 		}
 		function saveProduct(_type, _clicked){
+			console.log(_clicked)
 			loading('body');
 			var title = $(_clicked).closest('.product-edit').find('#ptitle').val();
 			var image = $(_clicked).closest('.product-edit').find('.product-preview').attr('src');
@@ -1013,8 +1014,8 @@
 					fileContent += 'title: ' + title + '\n';
 					fileContent += 'layout: default\n';
 					fileContent += 'image: ' + image + '\n';
-					fileContent += '---\n';			
-
+					fileContent += '---\n';
+			
 			if($(_clicked).closest('.product-edit').attr('data-editing')){//editing
 				var fileName        = $(_clicked).closest('.product-edit').attr('data-editing');
 				var titleToUrl      = formatThis(title.trim(), 'url') + '.html';
@@ -1070,7 +1071,7 @@
 			}else{//creating
 				var fileName          = formatThis(title.trim(), 'url') + '.html';
 				fileContent           = encodeContent(fileContent);	
-				mH[_type][titleToUrl] = fileContent;
+				mH[_type][fileName] = fileContent;
 				
 				createFile({
 					owner  : gOwner,
