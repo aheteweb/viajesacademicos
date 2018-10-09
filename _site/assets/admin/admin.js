@@ -948,7 +948,6 @@
 						product += '		    <i class="fas fa-edit"></i> Editar';
 						product += '		  </span>';
 						product += '		</div>';
-						product += '    <div>(<span class="scientific">' + productDetails.scientific + '</span>)</div>';
 						product += '  </div>';
 						product += '</li>';
 			  $(listSelector).append(product);
@@ -963,8 +962,10 @@
 				$('#ptitle').val('');
 				$('#pimage').val('');
 				$('.product-preview').attr('src', '');
+				$('.edit-page').hide();
 				toggleProducts(_type);
 			}else{
+				$('.edit-page').show();
 				var fileName = $(_clicked).closest('.media').attr('data-file');
 				var image    = $(_clicked).closest('.media').find('img').attr('src');
 				var imgName  = image.lastIndexOf('/');
@@ -1005,16 +1006,21 @@
 			///
 		}
 		function saveProduct(_type, _clicked){
-			var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
-			var title = $(_clicked).closest('.product-edit').find('#ptitle').val();
-			var condensedType = _type === 'campamentos' ? 'camps' : 'promos';
+			var fileName      = $(_clicked).closest('.product-edit').attr('data-editing');
+			var title         = $(_clicked).closest('.product-edit').find('#ptitle').val();
+			var image         = $(_clicked).closest('.product-edit').find('.product-preview').attr('src')
+			
 			if($(_clicked).closest('.product-edit').attr('data-editing')){
 				var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
 			}else{
 				var fileName = formatThis(title, 'url') + '.html';
-			}			
-			var _path = _type + '/' + fileName;
+			}		
+
+			var _path = _type === 'camps' ? '_campamentos' : '_promociones';
+			_path += '/' + fileName;
+			console.log(_path)
 			loading('body');
+
 			getContents({
 				owner: gOwner,
 				repo: gRepo,
@@ -1022,9 +1028,6 @@
 				action: function(data, status, xhr){
 					var content = atob(decodeContent(data.content));
 					var contentSections = $.trim(content.split('---')[2])
-					var title = $.trim($('.' + _type + ' #ptitle').val());
-					var image = $('.' + _type + ' .product-preview').attr('src');
-					
 					var fileContent  = '---\n';
 							fileContent += 'title: ' + title + '\n';
 							fileContent += 'layout: default\n';
@@ -1033,12 +1036,8 @@
 							fileContent += contentSections;
 							fileContent = encodeContent(fileContent);
 
-					if(_type === 'campamentos'){
-						mH.camps[fileName] = fileContent;
-					}else{
-						mH.promos[fileName] = fileContent;
-					}
-
+					mH[_type][fileName] = fileContent;
+					
 					if($('.product-edit').attr('data-editing')){
 						updateFile({
 							owner: gOwner,
@@ -1050,8 +1049,8 @@
 							action: function(data, status, xhr){
 								updatemH(function(){
 									loading('body', true);
-									populateSpecials(condensedType);
-									toggleProducts(condensedType);
+									populateSpecials(_type);
+									toggleProducts(_type);
 								})
 							}
 						});				
@@ -1066,65 +1065,23 @@
 							action: function(data, status, xhr){
 								updatemH(function(){
 									loading('body', true);
-									populateSpecials(condensedType);
-									toggleProducts(condensedType);
+									populateSpecials(_type);
+									toggleProducts(_type);
 								})								
 							}
 						});				
 					}
 				}
-			})			
-			// 
-			// var title = $.trim($('.' + _type + ' #ptitle').val());
-			// var image = $('.' + _type + ' .product-preview').attr('src');
-			// if($('.product-edit.' + _type).attr('data-editing')){
-			// 	var fileName = $('.product-edit.' + _type).attr('data-editing');
-			// }else{
-			// 	var fileName = formatThis(title, 'url') + '.html';
-			// }
-			// var fileContent  = '---\n';
-			// 		fileContent += 'title: ' + titleEn + '\n';
-			// 		fileContent += 'layout: default\n';
-			// 		fileContent += 'image: ' + image + '\n';
-			// 		fileContent += '---\n';
-			// 		fileContent = encodeContent(fileContent);
-
-			// mH.products[fileName] = fileContent;
-
-			// if($('.product-edit').attr('data-editing')){
-			// 	updateFile({
-			// 		owner: gOwner,
-			// 		repo: gRepo,
-			// 		path: '_products/' + fileName,
-			// 		content: fileContent,
-			// 		message: 'commited from the website',
-			// 		branch: 'master',
-			// 		action: function(data, status, xhr){
-			// 			updatemH(function(){
-			// 				loading('body', true);
-			// 				populateProducts();
-			// 				toggleProducts();
-			// 			})
-			// 		}
-			// 	});				
-			// }else{
-			// 	createFile({
-			// 		owner: gOwner,
-			// 		repo: gRepo,
-			// 		path: '_products/' + fileName,
-			// 		content: fileContent,
-			// 		message: 'commited from the website',
-			// 		branch: 'master',
-			// 		action: function(data, status, xhr){
-			// 			updatemH(function(){
-			// 				loading('body', true);
-			// 				populateProducts();
-			// 				toggleProducts();
-			// 			})								
-			// 		}
-			// 	});				
-			// }
+			})						
 		}
+		$(document).on('keyup', '#pimage', function(){
+			var inputVal = $(this).val();
+			var productPreview = $(this).closest('.product-edit').find('.product-preview').attr('src');
+			if(!productPreview.includes(inputVal)){
+				$(this).closest('.product-edit').find('.product-preview').attr('src', inputVal);
+			}
+		  
+		});
 
 //Start-Stop-Save
 		function edit(){
