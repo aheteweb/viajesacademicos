@@ -936,7 +936,7 @@
 						product += '  <img class="mr-3 card" src="' + productDetails.image + '">';
 						product += '  <div class="media-body">';
 						product += '    <h5 class="mt-0 mb-1">';
-						product += '    	<span class="title">';
+						product += '    	<span class="title" data-title="' + productDetails.title + '">';
 						product += 					productDetails.title;
 						product += '    	</span>';
 						product += '    </h5> ';
@@ -1005,73 +1005,89 @@
 			///
 		}
 		function saveProduct(_type, _clicked){
-			var fileName      = $(_clicked).closest('.product-edit').attr('data-editing');
-			var title         = $(_clicked).closest('.product-edit').find('#ptitle').val();
-			var image         = $(_clicked).closest('.product-edit').find('.product-preview').attr('src')
-			
-			if($(_clicked).closest('.product-edit').attr('data-editing')){
-				var fileName = $(_clicked).closest('.product-edit').attr('data-editing');
-			}else{
-				var fileName = formatThis(title, 'url') + '.html';
-			}		
-
-			var _path = _type === 'camps' ? '_campamentos' : '_promociones';
-			_path += '/' + fileName;
-			console.log(_path)
 			loading('body');
+			var title = $(_clicked).closest('.product-edit').find('#ptitle').val();
+			var image = $(_clicked).closest('.product-edit').find('.product-preview').attr('src');
+			var _path = _type === 'camps' ? '_campamentos/' : '_promociones/';
+			var fileContent  = '---\n';
+					fileContent += 'title: ' + title + '\n';
+					fileContent += 'layout: default\n';
+					fileContent += 'image: ' + image + '\n';
+					fileContent += '---\n';			
 
-			getContents({
-				owner: gOwner,
-				repo: gRepo,
-				path: _path,
-				action: function(data, status, xhr){
-					var content = atob(decodeContent(data.content));
-					var contentSections = $.trim(content.split('---')[2])
-					var fileContent  = '---\n';
-							fileContent += 'title: ' + title + '\n';
-							fileContent += 'layout: default\n';
-							fileContent += 'image: ' + image + '\n';
-							fileContent += '---\n';
-							fileContent += contentSections;
-							fileContent = encodeContent(fileContent);
+			if($(_clicked).closest('.product-edit').attr('data-editing')){//editing
+				var fileName        = $(_clicked).closest('.product-edit').attr('data-editing');
+				var titleToUrl      = formatThis(title.trim(), 'url') + '.html';
+				var content         = atob(decodeContent(mH[_type][fileName]));
+				var contentSections = $.trim(content.split('---')[2]);
+				fileContent        += contentSections;
+				fileContent         = encodeContent(fileContent);				
 
+				if(titleToUrl ===  fileName){//edit existing
 					mH[_type][fileName] = fileContent;
-					
-					if($(_clicked).closest('.product-edit').attr('data-editing')){
-						updateFile({
-							owner: gOwner,
-							repo: gRepo,
-							path: _path,
-							content: fileContent,
-							message: 'commited from the website',
-							branch: 'master',
-							action: function(data, status, xhr){
-								updatemH(function(){
-									loading('body', true);
-									populateSpecials(_type);
-									toggleProducts(_type);
-								})
-							}
-						});				
-					}else{
-						createFile({
-							owner: gOwner,
-							repo: gRepo,
-							path: _path,
-							content: fileContent,
-							message: 'commited from the website',
-							branch: 'master',
-							action: function(data, status, xhr){
-								updatemH(function(){
-									loading('body', true);
-									populateSpecials(_type);
-									toggleProducts(_type);
-								})								
-							}
-						});				
+					updateFile({
+						owner: gOwner,
+						repo: gRepo,
+						path: _path + fileName,
+						content: fileContent,
+						message: 'commited from the website',
+						branch: 'master',
+						action: function(data, status, xhr){
+							updatemH(function(){
+								loading('body', true);
+								populateSpecials(_type);
+								toggleProducts(_type);
+							})
+						}
+					});								
+				}else{//delete existing and save it under new name
+					deleteFile({
+						owner: gOwner,
+						repo: gRepo,
+						path: _path + fileName,
+						message: 'commited from the website',
+						action: function(data, status, xhr){
+							delete mH[_type][fileName];
+							mH[_type][titleToUrl] = fileContent;
+							createFile({
+								owner: gOwner,
+								repo: gRepo,
+								path: _path + titleToUrl,
+								content: fileContent,
+								message: 'commited from the website',
+								branch: 'master',
+								action: function(data, status, xhr){
+									updatemH(function(){
+										loading('body', true);
+										populateSpecials(_type);
+										toggleProducts(_type);
+									})								
+								}
+							});					
+						}
+					})					
+				}							
+			}else{//creating
+				var fileName          = formatThis(title.trim(), 'url') + '.html';
+				fileContent           = encodeContent(fileContent);	
+				mH[_type][titleToUrl] = fileContent;
+				
+				createFile({
+					owner  : gOwner,
+					repo   : gRepo,
+					path   : _path + fileName,
+					content: fileContent,
+					message: 'commited from the website',
+					branch : 'master',
+					action : function(data, status, xhr){
+						updatemH(function(){
+							loading('body', true);
+							populateSpecials(_type);
+							toggleProducts(_type);
+						})								
 					}
-				}
-			})						
+				});				
+			}
 		}
 		$(document).on('keyup', '#pimage', function(){
 			var inputVal = $(this).val();
