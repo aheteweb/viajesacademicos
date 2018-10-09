@@ -953,7 +953,6 @@
 			  $(listSelector).append(product);
 			});
 		}
-
 		function editSpecials(_action, _type, _clicked){
 			_action = _action.trim();
 			_type = _type.trim();
