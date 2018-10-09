@@ -938,7 +938,7 @@
 						product += '    <h5 class="mt-0 mb-1">';
 						product += '    	<span class="title">';
 						product += 					productDetails.title;
-						product += '    	</span> / ';
+						product += '    	</span>';
 						product += '    </h5> ';
 						product += '		<div class="btn-group">';
 						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteSpecials(' + _type + ')">';
