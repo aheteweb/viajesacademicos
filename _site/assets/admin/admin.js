@@ -1069,8 +1069,9 @@
 					})					
 				}							
 			}else{//creating
-				var fileName          = formatThis(title.trim(), 'url') + '.html';
-				fileContent           = encodeContent(fileContent);	
+				var fileName        = formatThis(title.trim(), 'url') + '.html';
+				fileContent        += '<div data-options data-mhsection="page_title"><div class="page_header bg" style="background-image: url(https://picsum.photos/1200/600/?random);"><div class="overlay"></div><div class="container"><div data-editable></div></div></div></div>';
+				fileContent         = encodeContent(fileContent);	
 				mH[_type][fileName] = fileContent;
 				
 				createFile({
