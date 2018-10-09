@@ -941,7 +941,7 @@
 						product += '    	</span>';
 						product += '    </h5> ';
 						product += '		<div class="btn-group">';
-						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteSpecials(' + _type + ')">';
+						product += '		  <span class="btn btn-sm btn-danger" onclick="deleteSpecials(&quot ' + _type + '&quot ,&quot ' + index +'&quot )">';
 						product += '		    <i class="fas fa-times"></i> Eliminar';
 						product += '		  </span>';
 						product += '		  <span class="btn btn-sm btn-info" onclick="editSpecials('+ editFunctionParams + ', this)">';
@@ -980,20 +980,23 @@
 				toggleProducts(_type)
 			}
 		}
-		function deleteProduct(clicked){
+		function deleteSpecials(_type, _fileName){
+			_type     = _type.trim();
+			_fileName = _fileName.trim();
 			var close = confirm('Seguro que deseas eliminar este producto? \nEsta accion no puede deshacerse.');
+			var _path = _type === 'camps' ? '_campamentos/' : '_promociones/';
+
 			if(close){
 				loading('body');
-				var fileName = $(clicked).closest('.media').attr('data-file');
-				delete mH.products[fileName];
+				delete mH[_type][_fileName];
 				deleteFile({
 					owner: gOwner,
 					repo: gRepo,
-					path: '_products/' + fileName,
+					path: _path + _fileName,
 					message: 'commited from the website',
 					action: function(data, status, xhr){
 						updatemH(function(){
-							populateProducts();
+							populateSpecials(_type);
 							loading('body', true);
 						})
 					}

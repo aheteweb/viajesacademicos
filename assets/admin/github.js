@@ -1028,11 +1028,14 @@ function Api(params) {
 				})
 		*/
 			function deleteFile(par){
+					console.log(par)
+					console.log('get contents')
 					getContents({
 						owner: par.owner,
 						repo: par.repo,
 						path: par.path,
 						action: function(data, status, xhr){
+							console.log('get contents response:')
 							var url = 'repos/' + par.owner + '/' + par.repo + '/contents/' + par.path;
 
 							var apiParams = {
@@ -1054,7 +1057,7 @@ function Api(params) {
 									email: par.author.email
 								}
 							}
-							
+							console.log('delete call')
 							Api({
 								method: 'DELETE',
 								url: ApiRoot + url,
