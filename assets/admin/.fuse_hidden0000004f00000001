@@ -141,9 +141,10 @@
     }
   ],
   "camps":{
-    "campamento-invierno.html":"LS0tCnRpdGxlOiBDYW1wYW1lbnRvIGVkaXRhZG8KbGF5b3V0OiBkZWZhdWx0CmltYWdlOiBodHRwczovL3BpY3N1bS5waG90b3MvMjAwLzMwMAotLS0KY29udGVuaWRvIGNhbXA="
+    "campamento-invierno.html":"LS0tCnRpdGxlOiBDYW1wYW1lbnRvIEludmllcm5vCmxheW91dDogZGVmYXVsdAppbWFnZTogaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vYWNvbnNhL2ltYWdlL3VwbG9hZC92MTUxOTE3MjcyNi9Ib21lL1Byb2R1Y3Rvcy9taF9wYXJnby1yb2pvLmpwZwotLS0KY29udGVuaWRvIGNhbXA="
   },
   "promos":{
-    "mitad-de-precio-curso-ingles.html":"LS0tCnRpdGxlOiBNaXRhZCBkZSBwcmVjaW8gY3Vyc28gaW5nbGVzCmxheW91dDogZGVmYXVsdAppbWFnZTogaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vYWNvbnNhL2ltYWdlL3VwbG9hZC92MTUxOTE3Mjc1MC9Ib21lL1Byb2R1Y3Rvcy9taF9nb2xkZW4tY29ydmluYS5qcGcKLS0tCmNvbnRlbmlkbyBwcm9tbw=="
+    "mitad-de-precio-curso-ingles.html":"LS0tCnRpdGxlOiBNaXRhZCBkZSBwcmVjaW8gY3Vyc28gaW5nbGVzCmxheW91dDogZGVmYXVsdAppbWFnZTogaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vYWNvbnNhL2ltYWdlL3VwbG9hZC92MTUxOTE3Mjc1MC9Ib21lL1Byb2R1Y3Rvcy9taF9nb2xkZW4tY29ydmluYS5qcGcKLS0tCmNvbnRlbmlkbyBwcm9tbw==",
+    "campamento-invierno.html":"LS0tCnRpdGxlOiAKbGF5b3V0OiBkZWZhdWx0CmltYWdlOiB1bmRlZmluZWQKLS0tCmNvbnRlbmlkbyBjYW1w"
   }
 }
