@@ -372,3 +372,19 @@
 	    bottom: 0;   
 	  }
 	}	
+
+//Specials
+	.specials {
+		[class^="col-"]{
+			margin-bottom: 1rem;
+		}
+		.card {
+			height: 100%;
+			
+		}
+		.card-header {
+			padding-top: 56.25%;
+			background-size: cover;
+			background-position: center;			
+		}
+	}

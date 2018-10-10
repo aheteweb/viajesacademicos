@@ -7902,6 +7902,15 @@ hr {
     left: 0;
     bottom: 0; }
 
+.specials [class^="col-"] {
+  margin-bottom: 1rem; }
+.specials .card {
+  height: 100%; }
+.specials .card-header {
+  padding-top: 56.25%;
+  background-size: cover;
+  background-position: center; }
+
 /**
  * Syntax highlighting styles
  */

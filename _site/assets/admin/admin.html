@@ -488,16 +488,30 @@
 	</div>
 
 	<div class="productos-edit">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-		    <span class="input-group-text" id="">Imagen de fondo:</span>
-		  </div>
-		  <input type="text" class="form-control input-image">
-		  <div class="input-group-append">
-		    <button class="rm-image btn btn-outline-danger" type="button" data-target=".preview .bg"><i class="fas fa-times"></i></button>
-		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview .bg"><i class="fas fa-search"></i></button>
-		  </div>
-		</div>		
+		<div class="form-group">
+	    <label for="camps-or-promos">Elementos a mostrar</label>
+	    <select class="form-control" id="camps-or-promos">
+	      <option>Selecciona una opcion</option>
+	      <option>Campamentos</option>
+	      <option>Promociones</option>
+	    </select>
+	  </div>
+
+	  <div class="form-group select-elements d-none">
+	    <label for="specials-select"></label>
+	    <select multiple class="form-control" id="specials-select">
+	    </select>
+  	</div>
+
+		<div class="form-group by-line d-none">
+	    <label for="specials-select">A mostart por linea:</label>
+	    <select class="form-control" id="special-card-width">
+	    	<option>1</option>
+	    	<option>2</option>
+	    	<option selected>3</option>
+	    	<option>4</option>
+	    </select>
+  	</div>  	
 	</div>
 
 	<div class="jekyll-products-preview">

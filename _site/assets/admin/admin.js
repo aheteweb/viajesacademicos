@@ -1439,17 +1439,11 @@
 				$('#mhSectionOptions .destacados-edit input').val(imgName);
 			}							
 		},
-		products_preview: function(){
+		specials: function(){
 			//Insert slider options
 			$('.preview').append($('.productos-edit').clone());	
 			//Clone the section into the editing area
 				$('.preview .productos-edit').append(editingSection.clone());
-			if($('.preview .bg').attr('style')){
-				var bgImg = $('.preview .bg').css('background-image').replace('url("', '').replace('")', '');
-				var imgName = bgImg.lastIndexOf('/');
-				imgName = bgImg.substring(imgName + 1);					
-				$('.preview .input-image').val(imgName);				
-			}									
 		},
 		map: function(){
 			//Insert slider options
@@ -1652,6 +1646,77 @@
 				}
 			})
 
+		//specials
+			$(document).on('change', '.preview #camps-or-promos', function(){
+				if($(this).val() === 'Campamentos'){
+					$('.select-elements label').text('Selecciona los campamentos a mostrar');
+					$('.select-elements, .by-line').removeClass('d-none');
+					$('.select-elements select').html('<option>Mostrar Todos</option>');
+					$.each(mH.camps, function(i,v){
+						$('.select-elements select').append('<option>' + i + '</option>')
+					})
+				}else if($(this).val() === 'Promociones'){
+					$('.select-elements label').text('Selecciona las promociones a mostrar');
+					$('.select-elements, .by-line').removeClass('d-none');
+					$('.select-elements select').html('<option>Mostrar Todos</option>');
+					$.each(mH.promos, function(i,v){
+						$('.select-elements select').append('<option>' + i + '</option>')
+					})					
+				}else{
+					$('.select-elements, .by-line').addClass('d-none')
+				}
+			});	
+			$(document).on('change', '.preview #specials-select', function(){
+				$('.preview .specials .row').empty();
+				var selected = $(this).val();
+				console.log(selected);
+				var special = $('#camps-or-promos').val() === "Promociones" ? "promos" : "camps";
+				var toShow = $('#special-card-width').val();
+				var widthClass = '';
+				if(toShow === '1'){
+					widthClass	= "col-12"
+				}else if(toShow === '2'){
+					widthClass = 'col-sm-6'
+				}else if(toShow === '3'){
+					widthClass = 'col-sm-6 col-md-4';
+				}else if(toShow === '4'){
+					widthClass = 'col-sm-6 col-md-3';
+				}
+				$.each(mH[special], function(i,v){
+					var data = jsyaml.load($.trim(atob(v).split('---')[1].split('---')[0]));
+					var card = '<div data-widthclass class="' + widthClass + '">'
+							card += '	<div class="card">'
+							card += '	  <div class="card-header" style="background-image: url(' + data.image + ');">'
+							card += '	  </div>'
+							card += '	  <div class="card-body">'
+							card += '	    <h5 class="card-title">' + data.title + '</h5>'
+							card += '	    <a href="' + $('#camps-or-promos').val().toLowerCase() + '/' + i + '" class="btn btn-primary">Ver mas</a>'
+							card += '	  </div>'
+							card += '	</div>'
+							card += '</div>'
+					if(selected.includes('Mostrar Todos')){
+						$('.preview .specials .row').append(card);
+					}else{
+						if(selected.includes(i)){
+							$('.preview .specials .row').append(card);
+						}
+					}
+				})
+			})
+			$(document).on('change', '.preview #special-card-width', function(){
+				var toShow = $(this).val();
+				var widthClass = '';
+				if(toShow === '1'){
+					widthClass	= "col-12"
+				}else if(toShow === '2'){
+					widthClass = 'col-sm-6'
+				}else if(toShow === '3'){
+					widthClass = 'col-sm-6 col-md-4';
+				}else if(toShow === '4'){
+					widthClass = 'col-sm-6 col-md-3';
+				}	
+				$('.preview [data-widthclass]').attr('class', widthClass);
+			})
 		/*
 		$(document).on('DOMSubtreeModified', '[data-editable] .ui-wrapper', function(){
 			console.log('changed');
