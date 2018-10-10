@@ -1061,7 +1061,7 @@
 				}							
 			}else{//creating
 				var fileName        = formatThis(title.trim(), 'url') + '.html';
-				fileContent        += '<div data-options data-mhsection="page_title"><div class="page_header bg" style="background-image: url(https://picsum.photos/1200/600/?random);"><div class="overlay"></div><div class="container"><div data-editable></div></div></div></div>';
+				fileContent        += '<div data-options data-mhsection="page_title"><div class="page_header bg" style="background-image: url(' + image + ');"><div class="overlay"></div><div class="container"><div data-editable><h1>' + title.trim() + '</h1></div></div></div></div>';
 				fileContent         = encodeContent(fileContent);	
 				mH[_type][fileName] = fileContent;
 				
