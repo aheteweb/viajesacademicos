@@ -7610,7 +7610,7 @@ nav .nav-item.active {
 *[data-mhsection] {
   margin-top: 30px; }
 
-*[data-mhsection="header_slider"]:first-child,
+*[data-mhsection="slider full"]:first-child,
 *[data-mhsection="page_title"] {
   margin-top: 0; }
 

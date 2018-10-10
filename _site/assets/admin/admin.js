@@ -763,7 +763,18 @@
 			$.each(cloudImages, function( index, value ) {//for each value create an image thumbnail
 			  var item 	= '<span class="image" data-publicid="' + value.public_id + '"><img src="' + value.url + '" class="img-thumbnail img-fluid"></span>';
 				$(element + ' .mhImagesI').append(item);	
-			});	
+			});
+			if(selectedImages.length > 0){
+				$('#imagesModal .use').attr('style', 'visibility:visible');
+			}
+			$.each(selectedImages, function (i,selected_url){
+				$('.mhListImages img').each(function(i,loaded_img){
+					if(selectedImages.includes($(loaded_img).attr('src'))){
+						$(loaded_img).addClass('uselected')
+					}
+				})
+			})
+
 		}
 		$(document).on('click', '.mhImagesf span', function(){//Navigating through the folders
 			var goTo = $(this).attr('data-path');//The data-path attr. of the clicked element holds the folder path in cloudinary
@@ -1376,10 +1387,17 @@
 			$('.preview img').wrap('<div class="change-image" data-image data-target=".preview img"></div>');
 		},
 		gallery_text: function(){
+			console.log(editingSection)
 			//Insert gallery options
 			$('.preview').append($('.gallery-edit').clone());
 			//Clone the section into the editing area
 			$('#mhSectionOptions .preview').append(editingSection.clone());
+			if($(editingSection).hasClass('no-text')){
+				$('.gallery-edit .text-position').hide();
+				editor.stop();
+			}else{
+				$('.gallery-edit .text-position').show();
+			}
 			$('.preview [lg-uid]').removeAttr('lg-uid');
 			$('.preview [lg-event-uid]').removeAttr('lg-event-uid');
 			if($('.preview .text').hasClass('order-lg-2')){
@@ -1544,8 +1562,10 @@
 				$(document).on('click', '.slider-edit input[name="slider-width"]', function(){
 					if($(this).attr('id') == 'content'){
 						$('.slider-edit .slider').addClass('container')
+						$('.slider-edit [data-options]').attr('data-mhsection', 'slider')
 					}else{
-						$('.slider-edit .slider').removeClass('container')	
+						$('.slider-edit .slider').removeClass('container')
+						$('.slider-edit [data-options]').attr('data-mhsection', 'slider full')
 					}
 				});
 		//Gallery
@@ -1563,6 +1583,14 @@
 					$('#imagesModal').modal('toggle');
 					$('#imagesModal').addClass('multiple');
 					imageTarget = $('.preview .mhgallery');
+					$('.preview .mhgallery .card').each(function(i,v){
+						var card = v;
+						var imageUrl = $(v).attr('href');
+						if(imageUrl.includes('res.cloudinary.com')){
+							selectedImages.push(imageUrl);
+						}
+					})
+					console.log(selectedImages)
 				});
 			//Prevent clicks on images in preview mode
 				$(document).on('click', '.preview .mhgallery .card', function(e){

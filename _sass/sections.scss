@@ -5,7 +5,7 @@
 *[data-mhsection] {
 	margin-top: 30px;
 }
-*[data-mhsection="header_slider"]:first-child,
+*[data-mhsection="slider full"]:first-child,
 *[data-mhsection="page_title"] {
 	margin-top: 0;
 }
@@ -50,6 +50,9 @@
 			i {
 				text-shadow: 3px 3px 16px #272634;
 			}
+		}
+		&.full {
+
 		}
 	}
 
