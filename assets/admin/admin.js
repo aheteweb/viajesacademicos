@@ -692,10 +692,8 @@
 			mH.nav = [];
 			$('#mhnav .nav-pages li').each(function( index ) {
 				var myObj = {};
-				myObj.permalink_en = $(this).attr('data-permalink_en');
-				myObj.permalink_es = $(this).attr('data-permalink_es');
-				myObj.title_en = $(this).attr('data-title_en');
-				myObj.title_es = $(this).attr('data-title_es');
+				myObj.permalink = $(this).attr('data-permalink');
+				myObj.title = $(this).attr('data-title');
 				mH.nav.push(myObj)
 			});
 			
