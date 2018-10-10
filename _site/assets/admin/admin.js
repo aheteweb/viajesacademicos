@@ -552,7 +552,7 @@
 			mH.config.facebook = $('#facebook').val();	
 			mH.config.twitter = $('#twitter').val();	
 			mH.config.instagram = $('#instagram').val();
-
+			
 			updateFile({
 				owner: gOwner,
 				repo: gRepo,
