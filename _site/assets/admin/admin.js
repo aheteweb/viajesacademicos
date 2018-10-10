@@ -595,25 +595,17 @@
 					path: pageUrl,
 					message: 'commited from the website',
 					action: function(data, status, xhr){
-						deleteFile({
-							owner: gOwner,
-							repo: gRepo,
-							path: 'es/' + pageUrl,
-							message: 'commited from the website',
-							action: function(data, status, xhr){
-								delete mH.pages[pagePath];
-								updatemH(function(){
-									if(mH.nav.includes(pagePath)){
-										mH.nav.splice(mH.nav.indexOf(pagePath), 1);
-									}
-									if($('.create-page').hasClass('d-none')){
-										$('.create-page, .new-page').toggleClass('d-none');
-									}
-									populateInternalPages('pages');
-									loading('body', true);
-								})
+						delete mH.pages[pagePath];
+						updatemH(function(){
+							if(mH.nav.includes(pagePath)){
+								mH.nav.splice(mH.nav.indexOf(pagePath), 1);
 							}
-						});
+							if($('.create-page').hasClass('d-none')){
+								$('.create-page, .new-page').toggleClass('d-none');
+							}
+							populateInternalPages('pages');
+							loading('body', true);
+						})
 					}
 				});
 			}
