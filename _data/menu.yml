@@ -1,24 +1,12 @@
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
-- permalink_en: !<tag:yaml.org,2002:js/undefined> ''
-  permalink_es: !<tag:yaml.org,2002:js/undefined> ''
-  title_en: !<tag:yaml.org,2002:js/undefined> ''
-  title_es: !<tag:yaml.org,2002:js/undefined> ''
+- permalink: /
+  title: Inicio
+- permalink: /nosotros
+  title: Nosotros
+- permalink: /destinos
+  title: Destinos
+- permalink: /seguros
+  title: Seguros
+- permalink: /contacto
+  title: Contacto
+- permalink: nueva-pagina
+  title: Nueva Pagina
