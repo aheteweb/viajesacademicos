@@ -533,10 +533,8 @@
 		});
 		$(document).on('click', '.save-config', function(){
 			loading('body');
-			mH.config.title.en = $.trim($('#title-en').val());
-			mH.config.title.es = $.trim($('#title-es').val());
-			mH.config.description.en = $.trim($('#desc-en').val());
-			mH.config.description.es = $.trim($('#desc-es').val());
+			mH.config.title = $.trim($('#title').val());
+			mH.config.description = $.trim($('#desc').val());
 			mH.config.emails = [];
 			mH.config.phones = [];
 			mH.config.address = [];
@@ -552,7 +550,7 @@
 			mH.config.facebook = $('#facebook').val();	
 			mH.config.twitter = $('#twitter').val();	
 			mH.config.instagram = $('#instagram').val();
-			
+
 			updateFile({
 				owner: gOwner,
 				repo: gRepo,
