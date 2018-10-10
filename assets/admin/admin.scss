@@ -629,3 +629,23 @@ $transition: all .5s;
 		margin-right: auto;
 	}
 }
+
+.dropzone .dz-preview {
+	.dz-success-mark:after,
+	.dz-error-mark:after {
+		content: '';
+	  position: absolute;
+	  top: 0;
+	  width: 98%;
+	  height: 98%;
+	  opacity: 0.5;
+	  border-radius: 50%;
+	  z-index: -1 
+	}
+	.dz-success-mark:after {
+		background: rgba(0, 128, 128, 1);
+	}
+	.dz-error-mark:after {
+		background: red;
+	}
+}
