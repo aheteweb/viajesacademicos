@@ -163,11 +163,11 @@
 			})
 		}
 	  firebase.auth().onAuthStateChanged(function(user) {
-		  // if (user) {
-		  // 	if (!document.getElementById("mhAdminbar")) {
-				//   $.getScript('/assets/admin/admin.js?' + new Date(), function(){});
-				// }
-		  // }
+		  if (user) {
+		  	if (!document.getElementById("mhAdminbar")) {
+				  $.getScript('/assets/admin/admin.js?' + new Date(), function(){});
+				}
+		  }
 		});
 
 		function fireSession(event){

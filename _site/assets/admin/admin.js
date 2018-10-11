@@ -1146,10 +1146,7 @@
 				}
 
 			//Save the contents of #mhContent inside the #toSave (2 copies, one for english and one for spanish)
-			$('#toSave .en, #toSave .es').html($('#mhContent')[0].innerHTML);
-			//Remove spanish content from english div and viceversa
-			$('#toSave .en [data-lang=es]').remove();
-			$('#toSave .es [data-lang=en]').remove();
+			$('#toSave').html($('#mhContent')[0].innerHTML);
 			//Remove sortable classes
 			$('#toSave .sortable').removeClass('sortable');
 			//Re-Init js laoded sections
@@ -1168,73 +1165,45 @@
 					var mail = '{% for item in site.emails %}<div><i class="fas fa-envelope"></i> {{ item }}</div>{% endfor %}';
 					$('#toSave [data-mhsection=contact_data] .address').html(address);
 					$('#toSave [data-mhsection=contact_data] .phone').html(phone);
-					$('#toSave [data-mhsection=contact_data] .mail').html(mail);
+					$('#toSave [data-mhsection=contact_data] .mails').html(mail);
 				}
 				if($('#toSave [data-mhsection=products_preview]').length > 0){
 					$('#toSave [data-mhsection=products_preview] .row').html($('.jekyll-products-preview').clone());
 					$('#toSave .jekyll-products-preview > *').unwrap();
 				}
-				if($('#toSave [data-mhsection=page_title]').length > 0){
-					$('#toSave [data-mhsection=page_title] .container').html('<h1 class="page-title">{{ page.title | upcase}}</h1>');
-				}
-				if($('#toSave [data-mhsection=products]').length > 0){
-					$('#toSave [data-mhsection=products] .row').html($('.jekyll-products').clone());
-					$('#toSave .jekyll-products > *').unwrap();
-				}								
+				// if($('#toSave [data-mhsection=page_title]').length > 0){
+				// 	$('#toSave [data-mhsection=page_title] .container').html('<h1 class="page-title">{{ page.title | upcase}}</h1>');
+				// }
+				// if($('#toSave [data-mhsection=products]').length > 0){
+				// 	$('#toSave [data-mhsection=products] .row').html($('.jekyll-products').clone());
+				// 	$('#toSave .jekyll-products > *').unwrap();
+				// }								
 
 			//Create the content for the page (en & es)
 			var fileName = $('body').attr('data-name');
 			var pageName = fileName.replace('.html', '');
-			var enHTML = '';
-			var esHTML = '';
-			$('#toSave .en > *').each(function(i, v) {
-			  enHTML += $.trim(v.outerHTML)
+			var savedHTMl = '';
+			$('#toSave > *').each(function(i, v) {
+			  savedHTMl += $.trim(v.outerHTML)
 			});
-			$('#toSave .es > *').each(function(i, v) {
-			  esHTML += $.trim(v.outerHTML)
-			});			
-			var enContent  = '---\n';
-					enContent += 'layout: default\n';
-					enContent += 'title: ' + mH.pages[pageName].title_en + '\n';
-					enContent += 'alttitle: ' + mH.pages[pageName].title_es + '\n';
-					enContent += 'permalink: ' + mH.pages[pageName].permalink_en + '\n';
-					enContent += 'altpermalink: ' + mH.pages[pageName].permalink_es + '\n';
-					enContent += 'lang: en\n';
-					if(pageName === 'index'){
-						enContent += 'checklang: true			\n';
-					}
-					enContent += '---\n';
-					enContent += enHTML;
-			var esContent  = '---\n';
-					esContent += 'layout: default\n';
-					esContent += 'title: ' + mH.pages[pageName].title_es + '\n';
-					esContent += 'alttitle: ' + mH.pages[pageName].title_en + '\n';
-					esContent += 'permalink: ' + mH.pages[pageName].permalink_es + '\n';
-					esContent += 'altpermalink: ' + mH.pages[pageName].permalink_en + '\n';
-					esContent += 'lang: es\n';
-					esContent += '---\n';
-					esContent += esHTML;
+					
+			var content  = '---\n';
+					content += 'layout: default\n';
+					content += 'title: ' + mH.pages[pageName].title + '\n';
+					content += '---\n';
+					content += savedHTMl;
+			
 			//Save the pages
 			updateFile({
 				owner: gOwner,
 				repo: gRepo,
 				path: fileName,
-				content: encodeContent(enContent),
+				content: encodeContent(content),
 				message: 'commited from the website',
 				branch: 'master',
 				action: function(data, status, xhr){
-					updateFile({
-						owner: gOwner,
-						repo: gRepo,
-						path: 'es/' + fileName,
-						content: encodeContent(esContent),
-						message: 'commited from the website',
-						branch: 'master',
-						action: function(data, status, xhr){
-							$('#toSave .en, #toSave .es').empty();
-							loading('body', true);
-						}
-					});
+					$('#toSave .en, #toSave .es').empty();
+					loading('body', true);
 				}
 			});
 		}
