@@ -29,8 +29,7 @@
 			<script src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.0.2/dist/js/lightgallery.min.js"></script>
 		<!-- Custom JS -->
     	<script src="/assets/js/js.js{% if site.production == false %}?date={{ site.time | date: '%s' }}{% endif %}"></script>
-		<!-- Custom JS (remove this line, go to js.js and uncomment line 161-->
-    	<script src="/assets/admin/admin.js{% if site.production == false %}?date={{ site.time | date: '%s' }}{% endif %}"></script>    
+		   
 			{% if page.js %}
 				<script src="{{ page.js | prepend: site.baseurl }}"></script>
 			{% endif %}
