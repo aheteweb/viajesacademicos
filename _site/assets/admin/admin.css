@@ -450,3 +450,8 @@ body[data-lang='en'] #mhContent *[data-lang="es"] {
   background: teal; }
 .dropzone .dz-preview .dz-error-mark:after {
   background: red; }
+
+.grid-edit article {
+  opacity: 0.3; }
+  .grid-edit article.active {
+    opacity: 1; }

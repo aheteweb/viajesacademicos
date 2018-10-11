@@ -384,6 +384,35 @@
 		</div>
 	</div>
 
+	<div class="grid-edit" style="margin-bottom: 50px;">
+		<div class="manipulate d-flex justify-content-between">
+			<div class="btn-group btn-group-toggle change-slide" data-toggle="buttons">
+				<span class="btn btn-outline-secondary" onclick="changeArticle('prev')"><i class="fas fa-angle-left"></i></span>
+				<span class="btn btn-outline-secondary" onclick="changeArticle('next')"><i class="fas fa-angle-right"></i></span>
+			</div>
+			
+			<h4>Grid Nro. <span class="number"></span></h4>
+			
+		</div>
+		<br>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text" id="grid-image">Imagen</span>
+		  </div>
+		  <input type="text" class="form-control input-image">
+		  <div class="input-group-append">
+		    <button class="btn btn-outline-secondary" type="button" data-image data-target=".preview article.active a"><i class="fas fa-search"></i></button>
+		  </div>
+		</div>	
+
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+		    <span class="input-group-text">Link</span>
+		  </div>
+		  <input type="text" class="form-control" id="grid-link">
+		</div>			
+	</div>	
+
 	<div class="gallery-edit">
 		<!-- <div class="input-group mb-3">
 			<div class="input-group-prepend">

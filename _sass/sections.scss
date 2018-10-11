@@ -158,7 +158,7 @@
 //GRID OF ARTICLES
 	.article_grid {//Style for when displaying as carousel
 		height: 400px;
-		article a {
+		article > * {
 			display: block;
 			height: 400px;
 			width: 100%;

@@ -803,6 +803,8 @@
 		$(document).on('click', '.upload-images', function(){
 			if($('#dropzone-area').is(':empty')){
 				initDropZone();
+			}else{
+				$('#dropzone-area').html('<div class="dz-default dz-message" style="display: block;"><span>Arrastra las imágenes de tu computador ó Haz click aqui para buscar.</span></div>');
 			}
 			$('#uploadPath').val($('#mhAdminpage .mhImagesf').attr('data-current-path').replace('Home/', '').replace('Home', ''));
 			$('.mhListImages, .mhUploadImages').toggleClass('d-none');
@@ -883,6 +885,7 @@
 			}
 		});
 		$(document).on('click', '#imagesModal .use:not(.content-tools)', function(){
+			console.log(imageTarget)
 			if($(imageTarget).hasClass('bg') || $(imageTarget).hasClass('slide')){
 				$(imageTarget).attr('style', 'background-image: url(' + selectedImages[0] + ')');
 				if(imageTarget === '.preview .bg'){
@@ -1343,6 +1346,7 @@
 	
 	var editFunctions = {
 		slider: function(){
+			console.log('slider')
 			//Insert slider options
 			$('.preview').append($('.slider-edit').clone());
 			$('.slider-edit .number').text('1');
@@ -1368,6 +1372,26 @@
 			//Init the slider on the page again
 			initSlider($(slider));
 		},
+		grid: function(){
+			console.log('destacados')
+			
+			//Insert slider options
+			$('.preview').append($('.grid-edit').clone());
+			$('.grid-edit .number').text('1');
+			//Append the slider raw html to the preview
+			$('.preview .grid-edit').append($(editingSection).clone());
+			//Add the active class (so I can edit one slide at a time)
+			$('#mhSectionOptions .grid-edit article:first-of-type').addClass('active');
+			$('article.active a').attr('data-href', $('article.active a').attr('href'));
+			$('article.active a').removeAttr('href');			
+			//get the slide image and place it like the input value
+			var bgImg = $('#mhSectionOptions .grid-edit article.active a').css('background-image').replace('url("', '').replace('")', '');
+			var imgName = bgImg.lastIndexOf('/');
+			imgName = bgImg.substring(imgName + 1);	
+			if(!bgImg.includes("picsum") && !bgImg.includes("placeimg")){
+			 	$('#mhSectionOptions .grid-edit input').val(imgName);
+			}
+		},		
 		text_image: function(){
 			//Insert gallery options
 			$('.preview').append($('.image-text-edit').clone());			
@@ -1690,8 +1714,10 @@
 							card += '	  </div>'
 							card += '	  <div class="card-body">'
 							card += '	    <h5 class="card-title">' + data.title + '</h5>'
-							card += '	    <a href="' + $('#camps-or-promos').val().toLowerCase() + '/' + i + '" class="btn btn-primary">Ver mas</a>'
 							card += '	  </div>'
+							card += '	  <a href="' + $('#camps-or-promos').val().toLowerCase() + '/' + i + '" class="card-footer bg-primary text-white">'
+							card += '	  ver mas'
+							card += '	  </a>'
 							card += '	</div>'
 							card += '</div>'
 					if(selected.includes('Mostrar Todos')){
@@ -1717,6 +1743,55 @@
 				}	
 				$('.preview [data-widthclass]').attr('class', widthClass);
 			})
+			$(document).on('click', '.preview .card-footer', function(e){
+				e.preventDefault();
+				window.open($(this).attr('href'), '_blank')
+			})
+		
+		//Grid
+			//navigate the slides
+				function changeArticle(action){
+					var nextSlide;
+					if(action === 'prev'){
+						if($('.grid-edit article.active').prev().length === 1){
+							nextSlide = $('.grid-edit article.active').prev();
+						}else{
+							nextSlide = $('.grid-edit article:last-of-type');
+						}					
+					}else{
+						if($('.grid-edit article.active').next().length === 1){
+							nextSlide = $('.grid-edit article.active').next();
+						}else{
+							nextSlide = $('.grid-edit article:first-of-type');
+						}					
+					}
+					$('article.active a').attr('href', $('article.active a').attr('data-href'));
+					$('article.active a').removeAttr('data-href');
+					$('article.active').removeClass('active');
+					$('.grid-edit input').val('');
+					$(nextSlide).addClass('active');
+					$('article.active a').attr('data-href', $('article.active a').attr('href'));
+					$('article.active a').removeAttr('href');
+
+					var child = $('.grid-edit article.active')[0]
+					var parent = child.parentNode;
+					// The equivalent of parent.children.indexOf(child)
+					var activeGridPosition = Array.prototype.indexOf.call(parent.children, child) + 1;
+					$('.grid-edit .number').text(activeGridPosition);					
+					var bgImg = $('.grid-edit article.active a').css('background-image').replace('url("', '').replace('")', '');
+					var imgName = bgImg.lastIndexOf('/');
+					imgName = bgImg.substring(imgName + 1);
+					if(!bgImg.includes("picsum") && !bgImg.includes("placeimg")){
+						$('.grid-edit .input-image').val(imgName);
+						$('.grid-edit #grid-link').val($('.grid-edit article.active a').attr('data-href'));
+					}					
+					//currentSlide();			
+				}
+				$(document).on('keyup', '.grid-edit #grid-link', function(){
+					console.log($('.grid-edit #grid-link').val())
+				  $('.grid-edit article.active a').attr('data-href', $('.grid-edit #grid-link').val());
+				});						
+
 		/*
 		$(document).on('DOMSubtreeModified', '[data-editable] .ui-wrapper', function(){
 			console.log('changed');
