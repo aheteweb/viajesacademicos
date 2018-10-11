@@ -3,7 +3,7 @@
 
   {% include head.html %}
 
-  <body data-title="{{ page.title }}" data-name="{{ page.name }}">
+  <body data-title="{{ page.title }}" data-save="{% if page.relative_path %}{{ page.relative_path }}{% else %}{{ page.name }}{% endif %}">
 
     {% include header.html %}
 		

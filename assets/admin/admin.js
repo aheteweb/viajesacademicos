@@ -1180,7 +1180,7 @@
 				// }								
 
 			//Create the content for the page (en & es)
-			var fileName = $('body').attr('data-name');
+			var saveIn = $('body').attr('data-save');
 			var pageName = fileName.replace('.html', '');
 			var savedHTMl = '';
 			$('#toSave > *').each(function(i, v) {
@@ -1197,7 +1197,7 @@
 			updateFile({
 				owner: gOwner,
 				repo: gRepo,
-				path: fileName,
+				path: saveIn,
 				content: encodeContent(content),
 				message: 'commited from the website',
 				branch: 'master',
