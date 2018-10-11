@@ -6,7 +6,8 @@
 	margin-top: 30px;
 }
 *[data-mhsection="slider full"]:first-child,
-*[data-mhsection="page_title"] {
+*[data-mhsection="page_title"],
+*[data-mhsection="grid"] {
 	margin-top: 0;
 }
 
