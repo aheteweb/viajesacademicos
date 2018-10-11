@@ -7912,6 +7912,9 @@ hr {
   background-size: cover;
   background-position: center; }
 
+.space {
+  height: 30px; }
+
 /**
  * Syntax highlighting styles
  */

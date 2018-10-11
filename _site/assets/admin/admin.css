@@ -455,3 +455,6 @@ body[data-lang='en'] #mhContent *[data-lang="es"] {
   opacity: 0.3; }
   .grid-edit article.active {
     opacity: 1; }
+
+.space {
+  border: 1px dotted #666; }
