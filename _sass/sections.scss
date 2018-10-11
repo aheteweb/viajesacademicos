@@ -10,6 +10,12 @@
 *[data-mhsection="grid"] {
 	margin-top: 0;
 }
+*[data-mhsection="space"] {
+	margin: 0;
+	.mhOptions .btn:first-child {
+		display: none!important;
+	}
+}
 
 //SLIDER
 	.slider {

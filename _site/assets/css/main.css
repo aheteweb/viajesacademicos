@@ -7616,6 +7616,11 @@ nav .nav-item.active {
 *[data-mhsection="grid"] {
   margin-top: 0; }
 
+*[data-mhsection="space"] {
+  margin: 0; }
+  *[data-mhsection="space"] .mhOptions .btn:first-child {
+    display: none !important; }
+
 .slider article div {
   display: block;
   height: 400px;
