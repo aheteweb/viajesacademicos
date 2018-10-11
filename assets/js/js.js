@@ -1,7 +1,7 @@
 /*
 	Global variables
 */
-	var baseUrl = 'http://localhost:4000/';
+	var baseUrl = 'https://viajesacademicos.com.ve/';
 	var loader = '<div class="mhloading"><div class="icon"><i class="fas fa-spinner fa-pulse"></i><i class="fas fa-check" style="display: none;"></i></div></div>';
 
 /*
