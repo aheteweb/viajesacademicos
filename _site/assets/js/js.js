@@ -105,30 +105,34 @@
 /*
 	Carousel style slider
 */
-	$('.carousel_items').slick({
-		dots          : true,
-		infinite      : true,
-		speed         : 300,
-		slidesToScroll: 3,
-		slidesToShow  : 5,
-		autoplay      : true,
-		autoplaySpeed : 2000,
-		arrows        : false,
-		responsive    : [
-	    {
-				breakpoint: 768,
-				settings  : {
-	        slidesToShow: 4
-	      }
-	    },
-	    {
-				breakpoint: 576,
-				settings  : {
-	        slidesToShow: 2
-	      }
-	    }
-	  ]
-	})
+	function initializeCarousel(element){
+		$(element).slick({
+				dots          : true,
+				infinite      : true,
+				speed         : 300,
+				slidesToScroll: 3,
+				slidesToShow  : 5,
+				autoplay      : true,
+				autoplaySpeed : 2000,
+				arrows        : false,
+				responsive    : [
+			    {
+						breakpoint: 768,
+						settings  : {
+			        slidesToShow: 4
+			      }
+			    },
+			    {
+						breakpoint: 576,
+						settings  : {
+			        slidesToShow: 2
+			      }
+			    }
+			  ]
+			})
+	}
+	initializeCarousel('.carousel_items')
+	
 	$(window).bind('load resize orientationchange', function(){
 		var height = $('.carousel_items .slick-track').height();
 		$('.carousel_items .slick-slide').height(height);

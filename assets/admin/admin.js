@@ -430,6 +430,10 @@
 						if(section === 'columns_2' || section === 'columns_3'){
 							dragNdrop();
 						}
+					//Carrusel
+						if(section === 'carrusel'){
+							initializeCarousel('#mhReceived .carousel_items')
+						}
 
       	//After all manipulation have been done to the dropped element, remove it's #mhReceived attribute used before to manipulate it. Then start the editor again
       		$('#mhReceived').removeAttr('id');
@@ -904,6 +908,13 @@
 					$('.mhgallery').append(galItem);
 				});
 			}
+			if($(imageTarget).hasClass('carousel_items')){
+				$('.carousel_items').empty();
+				$.each(selectedImages, function( index, value ) {
+					var item = '<img src="' + value + '" alt="">'
+					$('.carousel_items').append(item);
+				});
+			}			
 			if(imageTarget === '.preview img'){
 				$(imageTarget).attr('src', selectedImages[0]);
 			}
@@ -1293,7 +1304,6 @@
 		}else{
 			editorInit('#mhSectionOptions', true);
 		}
-		
 	}
 	
 	function closeSection(){
@@ -1304,11 +1314,15 @@
 			$('#mhSectionOptions .preview').empty();
 			editor.stop(true);
 		}
+		if(sectionType === 'carrusel'){
+			initializeCarousel('.carousel_items')
+		}		
 	}
 
 	function saveSection(){
 		$('.mhOptions').removeClass('d-none')
 		$('html').toggleClass('sections-open');
+
 		if(sectionType === 'header_slider' || sectionType === 'slider'){
 			//Add a class so I can init the slider once appended to the mhContent
 			$('.preview [data-options]').addClass('initSlider');
@@ -1323,7 +1337,7 @@
 		}
 		if(sectionType === 'destacados'){
 			$('.card.active').removeClass('active');
-		}		
+		}	
 		$(editingSection).replaceWith($('.preview [data-options]'));
 		//If the editing section 
 		if(sectionType === 'header_slider' || sectionType === 'slider'){
@@ -1333,7 +1347,11 @@
 		if(sectionType === 'gallery_text'){
 			lightGallery(document.getElementById(galleryId));
 		}
-
+		
+		if(sectionType === 'carrusel'){
+			initializeCarousel('.carousel_items')
+		}
+		
 		editor.stop(true);
 	}
 
@@ -1498,7 +1516,13 @@
 		text: function(){
 			//Clone the section into the editing area
 			$('#mhSectionOptions .preview').append(editingSection.clone());
-		},		
+		},
+		carrusel: function(){
+			//Clone the section into the editing area
+			$('.carousel_items').slick('unslick');
+			$('.preview').append($('.carrusel-edit').clone());
+			$('#mhSectionOptions .preview').append(editingSection.clone());
+		},			
 	}
 
 	//Individual sections options
@@ -1586,6 +1610,7 @@
 						$('.slider-edit [data-options]').attr('data-mhsection', 'slider full')
 					}
 				});
+		
 		//Gallery
 			//Change first image style
 				$(document).on('change', 'input[type=radio][name=firstImage]', function(){
@@ -1614,6 +1639,20 @@
 				$(document).on('click', '.preview .mhgallery .card', function(e){
 					e.preventDefault();
 				})
+
+		//Carrusel
+				$(document).on('click', '.preview .carrusel-images', function(){
+					$('#imagesModal').modal('toggle');
+					$('#imagesModal').addClass('multiple');
+					imageTarget = $('.preview .carousel_items');
+					$('.preview .carousel_items img').each(function(i,v){
+						var imageUrl = $(v).attr('src');
+						if(imageUrl.includes('res.cloudinary.com')){
+							selectedImages.push(imageUrl);
+						}
+					})
+					console.log(selectedImages)
+				});			
 		
 		//Destacados
 			//navigate the slides

@@ -281,13 +281,12 @@
 					button {
 						font-size: 0;
 				    line-height: 0;
-				    width: 30px;
+				    width: 36px;
 				    height: 30px;
 				    cursor: pointer;
-				    color: transparent;
 				    border: 0;
 				    outline: none;
-				    background: transparent;
+				    background: #fff;
 				    &:before {
 				    	font-family: "Font Awesome 5 Free";
 				    	font-weight: 900;
@@ -298,7 +297,7 @@
 					    height: 20px;
 					    text-align: center;
 					    opacity: .75;
-					    color: #fff;
+					    color: $brand;
 				    }
 					}
 				}

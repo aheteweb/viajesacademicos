@@ -7829,13 +7829,12 @@ nav .nav-item.active {
       .carousel .carousel_items .slick-dots li button {
         font-size: 0;
         line-height: 0;
-        width: 30px;
+        width: 36px;
         height: 30px;
         cursor: pointer;
-        color: transparent;
         border: 0;
         outline: none;
-        background: transparent; }
+        background: #fff; }
         .carousel .carousel_items .slick-dots li button:before {
           font-family: "Font Awesome 5 Free";
           font-weight: 900;
@@ -7846,7 +7845,7 @@ nav .nav-item.active {
           height: 20px;
           text-align: center;
           opacity: .75;
-          color: #fff; }
+          color: #009EE5; }
   .carousel.world {
     background: #009ee5 url(/assets/images/world.png) no-repeat center center fixed;
     color: #fff;
