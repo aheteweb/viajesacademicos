@@ -1041,7 +1041,7 @@
 				fileContent         = encodeContent(fileContent);				
 
 				if(titleToUrl ===  fileName){//edit existing
-					mH[_type][fileName] = fileContent;
+					mH[_type][fileName] = title.trim();
 					updateFile({
 						owner: gOwner,
 						repo: gRepo,
@@ -1181,7 +1181,7 @@
 
 			//Create the content for the page (en & es)
 			var saveIn = $('body').attr('data-save');
-			var pageName = fileName.replace('.html', '');
+			var pageName = $('body').attr('data-title');
 			var savedHTMl = '';
 			$('#toSave > *').each(function(i, v) {
 			  savedHTMl += $.trim(v.outerHTML)
@@ -1189,7 +1189,7 @@
 					
 			var content  = '---\n';
 					content += 'layout: default\n';
-					content += 'title: ' + mH.pages[pageName].title + '\n';
+					content += 'title: ' + pageName + '\n';
 					content += '---\n';
 					content += savedHTMl;
 			
