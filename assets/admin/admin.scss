@@ -662,3 +662,7 @@ $transition: all .5s;
 .space {
 	border: 1px dotted #666;
 }
+.sortable > * {
+  margin-top: 5em!important;
+  margin-bottom: 5em!important;
+}

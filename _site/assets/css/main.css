@@ -7819,8 +7819,6 @@ nav .nav-item.active {
 
 .carousel {
   text-align: center;
-  padding-top: 3em;
-  padding-bottom: 3em;
   margin-top: 3em; }
   .carousel .carousel_items .slick-slide {
     margin-right: 15px;
