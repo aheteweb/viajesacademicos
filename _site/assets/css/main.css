@@ -7920,9 +7920,34 @@ hr {
   padding-top: 56.25%;
   background-size: cover;
   background-position: center; }
+.specials .card-footer {
+  display: block;
+  padding: 10px; }
 
 .space {
   height: 30px; }
+
+.w-1 {
+  width: 100%;
+  display: inline-block; }
+
+.w-2 {
+  width: 48%;
+  display: inline-block;
+  margin-right: 1%;
+  margin-left: 1%; }
+
+.w-3 {
+  width: 31%;
+  display: inline-block;
+  margin-right: 1%;
+  margin-left: 1%; }
+
+.w-4 {
+  width: 22%;
+  display: inline-block;
+  margin-right: 1%;
+  margin-left: 1%; }
 
 /**
  * Syntax highlighting styles

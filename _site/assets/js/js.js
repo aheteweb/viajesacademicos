@@ -31,6 +31,9 @@
 	$(window).bind('load resize orientationchange', function(){
 	  $('.brand_bar').trigger('testfit');
 	  $('nav').trigger('testfit');
+	  gridToSlider();
+	  navTabsRelated();
+	  cardWidths();
 	});
 	$('.brand_bar').bind('testfit', function(){
 
@@ -65,7 +68,7 @@
 /*
 	Control when to show slider and when to show grid
 */
-	$(window).bind('load resize orientationchange', function(){
+	function gridToSlider(){
 	  if($(window).outerWidth() < 768){
 	  	if(!$('.article_grid').hasClass('slick-initialized')){
 	  		$('.article_grid').slick({
@@ -79,9 +82,8 @@
 	  	}
 	  	
 	  }
-	});
-
-	$(window).bind('load resize orientationchange', function(){
+	}
+	function navTabsRelated(){
 		$.each($('.nav-tabs'), function(i,v){
 		  var tabItem = $(v).find('li');
 		  var firstitem = $(tabItem[0]);
@@ -92,7 +94,7 @@
 	    	$(v).removeClass('tab-style');
 	    }
 		})
-	});
+	}
 
 /*
 	Slider initialization 
@@ -199,3 +201,14 @@
 	$('.mhgallery').each(function(){
 		lightGallery(document.getElementById($(this).attr('id')));
 	});	
+
+/* control card widths */
+	function cardWidths(){
+		$.each($('.card'), function(i,v){
+			if($(v).attr('class').includes('w-')){
+				if($(v).outerWidth() < 200){
+					$(v).css("width", "200");
+				}
+			}
+		})
+	}
