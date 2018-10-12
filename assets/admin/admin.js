@@ -1786,6 +1786,7 @@
 
 		//specials
 			$(document).on('change', '.preview #camps-or-promos', function(){
+				$('.preview .specials .container').empty();
 				if($(this).val() === 'Campamentos'){
 					$('.select-elements label').text('Selecciona los campamentos a mostrar');
 					$('.select-elements, .by-line').removeClass('d-none');
@@ -1805,7 +1806,7 @@
 				}
 			});	
 			$(document).on('change', '.preview #specials-select', function(){
-				$('.preview .specials .row').empty();
+				$('.preview .specials .container').empty();
 				var selected = $(this).val();
 				console.log(selected);
 				var special = $('#camps-or-promos').val() === "Promociones" ? "promos" : "camps";
