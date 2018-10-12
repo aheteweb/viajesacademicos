@@ -1759,15 +1759,7 @@
 				var special = $('#camps-or-promos').val() === "Promociones" ? "promos" : "camps";
 				var toShow = $('#special-card-width').val();
 				var widthClass = '';
-				if(toShow === '1'){
-					widthClass	= "col-12"
-				}else if(toShow === '2'){
-					widthClass = 'col-sm-6'
-				}else if(toShow === '3'){
-					widthClass = 'col-sm-6 col-md-4';
-				}else if(toShow === '4'){
-					widthClass = 'col-sm-6 col-md-3';
-				}
+				
 				$.each(mH[special], function(i,v){
 					var _image = decodeContent(atob(v.image));
 					var _title = decodeContent(atob(v.title));
@@ -1784,27 +1776,24 @@
 							card += '	</div>'
 							//card += '</div>'
 					if(selected.includes('Mostrar Todos')){
-						$('.preview .specials .row').append(card);
+						if($('.preview .specials .container .card').length === 0){
+							$('.preview .specials .container').empty();
+						}
+						$('.preview .specials .container').append(card);
 					}else{
 						if(selected.includes(i)){
-							$('.preview .specials .row').append(card);
+							if($('.preview .specials .container .card').length === 0){
+								$('.preview .specials .container').empty();
+							}							
+							$('.preview .specials .container').append(card);
 						}
 					}
 				})
 			})
 			$(document).on('change', '.preview #special-card-width', function(){
 				var toShow = $(this).val();
-				var widthClass = '';
-				if(toShow === '1'){
-					widthClass	= "col-12"
-				}else if(toShow === '2'){
-					widthClass = 'col-sm-6'
-				}else if(toShow === '3'){
-					widthClass = 'col-sm-6 col-md-4';
-				}else if(toShow === '4'){
-					widthClass = 'col-sm-6 col-md-3';
-				}	
-				$('.preview [data-widthclass]').attr('class', widthClass);
+				
+				$('.preview .card').attr('class', 'card w-' + toShow);
 			})
 			$(document).on('click', '.preview .card-footer', function(e){
 				e.preventDefault();
