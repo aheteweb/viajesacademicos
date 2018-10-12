@@ -944,13 +944,15 @@
 			var editFunctionParams = '&quot edit&quot, &quot ' + _type + '&quot';
 			$(listSelector).empty();
 			$.each(mH[_type], function( index, value ) {
-				var productDetails = jsyaml.load($.trim(decodeContent(atob(mH[_type][index])).split('---')[1]));
+				var _image = decodeContent(atob(value.image))
+				var _title = decodeContent(atob(value.title))
+				//var productDetails = jsyaml.load($.trim(decodeContent(atob(mH[_type][index])).split('---')[1]));
 				var product  = '<li class="media" data-file="' + index + '">';
-						product += '  <img class="mr-3 card" src="' + productDetails.image + '">';
+						product += '  <img class="mr-3 card" src="' + _image + '">';
 						product += '  <div class="media-body">';
 						product += '    <h5 class="mt-0 mb-1">';
 						product += '    	<span class="title">';
-						product += 					productDetails.title;
+						product += 					_title;
 						product += '    	</span>';
 						product += '    </h5> ';
 						product += '		<div class="btn-group">';
@@ -1767,18 +1769,20 @@
 					widthClass = 'col-sm-6 col-md-3';
 				}
 				$.each(mH[special], function(i,v){
-					var card = '<div data-widthclass class="' + widthClass + '">'
-							card += '	<div class="card">'
-							card += '	  <div class="card-header" style="background-image: url(' + data.image + ');">'
+					var _image = decodeContent(atob(v.image));
+					var _title = decodeContent(atob(v.title));
+					//var card = '<div data-widthclass class="' + widthClass + '">'
+					var card  = '	<div class="card w-' + toShow + '">'
+							card += '	  <div class="card-header" style="background-image: url(' + _image + ');">'
 							card += '	  </div>'
 							card += '	  <div class="card-body">'
-							card += '	    <h5 class="card-title">' + v + '</h5>'
+							card += '	    <h5 class="card-title">' + _title + '</h5>'
 							card += '	  </div>'
 							card += '	  <a href="' + $('#camps-or-promos').val().toLowerCase() + '/' + i + '" class="card-footer bg-primary text-white">'
 							card += '	  ver mas'
 							card += '	  </a>'
 							card += '	</div>'
-							card += '</div>'
+							//card += '</div>'
 					if(selected.includes('Mostrar Todos')){
 						$('.preview .specials .row').append(card);
 					}else{
