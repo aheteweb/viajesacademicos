@@ -1067,7 +1067,9 @@
 						message: 'commited from the website',
 						action: function(data, status, xhr){
 							delete mH[_type][fileName];
-							mH[_type][titleToUrl] = fileContent;
+							mH[_type][fileName] = {};
+							mH[_type][fileName].title = title.trim();
+							mH[_type][fileName].image = image;
 							createFile({
 								owner: gOwner,
 								repo: gRepo,
