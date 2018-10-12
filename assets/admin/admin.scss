@@ -616,10 +616,10 @@ $transition: all .5s;
 				}
 			}
 
-	.pad {
-		margin-top: 50px;
-		margin-bottom: 50px;
-	}
+.ui-sortable-helper.pad {
+	max-height: 200px!important;
+	overflow: hidden;
+}
 
 .ce-element--type-image {
 	margin-left: 0;

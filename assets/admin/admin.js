@@ -445,9 +445,11 @@
       },
       out: function(){
       	$('.sortable [data-mhsection]').removeClass('pad');
+      	$('.sortable').removeClass('sorting');
       },
       over: function(){
       	$('.sortable [data-mhsection]').addClass('pad');
+      	$('.sortable').removeClass('sorting');
       }
     });
     $( ".draggable" ).draggable({
