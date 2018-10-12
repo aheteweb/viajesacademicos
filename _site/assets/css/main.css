@@ -7625,6 +7625,10 @@ nav .nav-item.active {
   *[data-mhsection="space"] .mhOptions .btn:first-child {
     display: none !important; }
 
+*[data-mhsection="columns_2"] .sortable div:first-child,
+*[data-mhsection="columns_3"] .sortable div:first-child {
+  margin-top: 0 !important; }
+
 .slider article div {
   display: block;
   height: 400px;
@@ -7891,8 +7895,7 @@ nav .nav-item.active {
     opacity: 0.8; }
 
 hr {
-  margin-top: 2em;
-  margin-bottom: 2em; }
+  margin-top: 2em; }
 
 .map {
   width: 100%;
