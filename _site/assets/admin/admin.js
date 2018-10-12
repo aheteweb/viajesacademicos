@@ -1120,7 +1120,7 @@
 		function edit(){
 			loading('body');
 			$('html').attr('id', 'mhEditing');
-			$('.mhOptions').remove();
+			$('[data-options] .mhOptions').remove();
 			$('[data-options]').prepend($('#adminHtml .mhOptions').clone());
 			//Sliders need to be destroyed, the slider js adds extra slides, this fucks up the sections that need to be found in the altPage code
 				destroySlider('.slider');
