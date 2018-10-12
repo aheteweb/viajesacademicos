@@ -1120,6 +1120,7 @@
 		function edit(){
 			loading('body');
 			$('html').attr('id', 'mhEditing');
+			$('.mhOptions').remove();
 			$('[data-options]').prepend($('#adminHtml .mhOptions').clone());
 			//Sliders need to be destroyed, the slider js adds extra slides, this fucks up the sections that need to be found in the altPage code
 				destroySlider('.slider');
@@ -1715,13 +1716,12 @@
 					widthClass = 'col-sm-6 col-md-3';
 				}
 				$.each(mH[special], function(i,v){
-					var data = jsyaml.load($.trim(atob(v).split('---')[1].split('---')[0]));
 					var card = '<div data-widthclass class="' + widthClass + '">'
 							card += '	<div class="card">'
 							card += '	  <div class="card-header" style="background-image: url(' + data.image + ');">'
 							card += '	  </div>'
 							card += '	  <div class="card-body">'
-							card += '	    <h5 class="card-title">' + data.title + '</h5>'
+							card += '	    <h5 class="card-title">' + v + '</h5>'
 							card += '	  </div>'
 							card += '	  <a href="' + $('#camps-or-promos').val().toLowerCase() + '/' + i + '" class="card-footer bg-primary text-white">'
 							card += '	  ver mas'
