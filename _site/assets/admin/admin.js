@@ -423,7 +423,7 @@
 					//Page title
 						if(section === 'page_title'){
 							var pageTitle = $('body').attr('data-title');
-							$('#mhReceived .js-content').html('<h1><b>' + pageTitle + '</b></h1>');
+							$('#mhReceived [data-editable]').html('<h1><b>' + pageTitle + '</b></h1>');
 						}
 					//Columns
 						//detach draggable and sortable and init it again
