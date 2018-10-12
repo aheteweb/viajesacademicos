@@ -1090,9 +1090,9 @@
 				}							
 			}else{//creating
 				var fileName        = formatThis(title.trim(), 'url') + '.html';
-				fileContent        += '<div data-options data-mhsection="page_title"><div class="page_header bg" style="background-image: url(' + image + ');"><div class="overlay"></div><div class="container"><div data-editable><h1>' + title.trim() + '</h1></div></div></div></div>';
-				fileContent         = encodeContent(fileContent);	
-				mH[_type][fileName] = fileContent;
+				mH[_type][fileName] = {};
+				mH[_type][fileName].title = title.trim();
+				mH[_type][fileName].image = image;
 				
 				createFile({
 					owner  : gOwner,
