@@ -1347,6 +1347,12 @@
 		if(sectionType === 'destacados'){
 			$('.card.active').removeClass('active');
 		}
+		if(sectionType === 'grid'){
+			$.each($('.preview article a'), function (i,v){
+				$(v).attr('href', $(v).attr('data-href'));
+				$(v).removeAttr('data-href');
+			})
+		}		
 		$('.preview [data-editable]').addClass('just-edited');
 		$(editingSection).replaceWith($('.preview [data-options]'));
 		//If the editing section 
@@ -1406,24 +1412,39 @@
 			initSlider($(slider));
 		},
 		grid: function(){
-			console.log('destacados')
-			
 			//Insert slider options
 			$('.preview').append($('.grid-edit').clone());
 			$('.grid-edit .number').text('1');
+			var firstLink = $(editingSection).find('article:first-of-type').find('a').attr('href')
+			var firstImage = $(editingSection).find('article:first-of-type').find('a').css('background-image').replace('url("', '').replace('")', '');
+			var firstImageName = firstImage.substring(firstImage.lastIndexOf('/') + 1);	
 			//Append the slider raw html to the preview
 			$('.preview .grid-edit').append($(editingSection).clone());
 			//Add the active class (so I can edit one slide at a time)
-			$('#mhSectionOptions .grid-edit article:first-of-type').addClass('active');
-			$('article.active a').attr('data-href', $('article.active a').attr('href'));
-			$('article.active a').removeAttr('href');			
+			$('.preview .grid-edit article:first-of-type').addClass('active');
+			//Place image in input
+			$('.preview .grid-edit .input-image').val(firstImageName);
+			if(firstLink !== '#'){
+				$('.preview .grid-edit #grid-link').val(firstLink);
+			}
+			$.each($('.preview article a'), function(i,v){
+				$(v).attr('data-href', $(v).attr('href'));
+				$(v).removeAttr('href');
+			})
+			/*
 			//get the slide image and place it like the input value
 			var bgImg = $('#mhSectionOptions .grid-edit article.active a').css('background-image').replace('url("', '').replace('")', '');
 			var imgName = bgImg.lastIndexOf('/');
 			imgName = bgImg.substring(imgName + 1);	
 			if(!bgImg.includes("picsum") && !bgImg.includes("placeimg")){
-			 	$('#mhSectionOptions .grid-edit input').val(imgName);
+			 	$('#mhSectionOptions .grid-edit .input-image').val(imgName);
 			}
+			var _href = $('article.active a').attr('href');
+			console.log(_href);
+			$('.preview article a').attr('data-href', _href);
+			$('.preview article a').removeAttr('href');		
+			$('#mhSectionOptions .grid-edit #grid-link').val($('article.active a').attr('data-href'));
+			*/
 		},		
 		text_image: function(){
 			//Insert gallery options
@@ -1848,13 +1869,13 @@
 							nextSlide = $('.grid-edit article:first-of-type');
 						}					
 					}
-					$('article.active a').attr('href', $('article.active a').attr('data-href'));
-					$('article.active a').removeAttr('data-href');
+					// $('article.active a').attr('href', $('article.active a').attr('data-href'));
+					// $('article.active a').removeAttr('data-href');
 					$('article.active').removeClass('active');
 					$('.grid-edit input').val('');
 					$(nextSlide).addClass('active');
-					$('article.active a').attr('data-href', $('article.active a').attr('href'));
-					$('article.active a').removeAttr('href');
+					// $('article.active a').attr('data-href', $('article.active a').attr('href'));
+					// $('article.active a').removeAttr('href');
 
 					var child = $('.grid-edit article.active')[0]
 					var parent = child.parentNode;
@@ -1866,8 +1887,8 @@
 					imgName = bgImg.substring(imgName + 1);
 					if(!bgImg.includes("picsum") && !bgImg.includes("placeimg")){
 						$('.grid-edit .input-image').val(imgName);
-						$('.grid-edit #grid-link').val($('.grid-edit article.active a').attr('data-href'));
-					}					
+					}
+					$('.grid-edit #grid-link').val($('.grid-edit article.active a').attr('data-href'));
 					//currentSlide();			
 				}
 				$(document).on('keyup', '.grid-edit #grid-link', function(){
