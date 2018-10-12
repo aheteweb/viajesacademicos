@@ -1041,7 +1041,9 @@
 				fileContent         = encodeContent(fileContent);				
 
 				if(titleToUrl ===  fileName){//edit existing
-					mH[_type][fileName] = title.trim();
+					mH[_type][fileName] = {};
+					mH[_type][fileName].title = title.trim();
+					mH[_type][fileName].image = image;
 					updateFile({
 						owner: gOwner,
 						repo: gRepo,
@@ -1246,7 +1248,7 @@
 					});
 				//Stop event
 					editor.addEventListener('stop', function (ev) {
-					
+
 					});
 				//Save event
 					editor.addEventListener('save', function (ev) {
@@ -1307,7 +1309,8 @@
 		}
 		if(sectionType === 'destacados'){
 			$('.card.active').removeClass('active');
-		}	
+		}
+		$('.preview [data-editable]').addClass('just-edited');
 		$(editingSection).replaceWith($('.preview [data-options]'));
 		//If the editing section 
 		if(sectionType === 'header_slider' || sectionType === 'slider'){
@@ -1323,6 +1326,11 @@
 		}
 		
 		editor.stop(true);
+		$.each($('.just-edited p'), function(i,v){
+			if($(v).text().trim() === '.'){
+				$(v).replaceWith('<br>');
+			}
+		})
 	}
 
 	function removeSection(section){
@@ -1397,6 +1405,19 @@
 				$('.preview .input-image').val(imgName);				
 			}
 			$('.preview img').wrap('<div class="change-image" data-image data-target=".preview img"></div>');
+			setTimeout(function(){
+				$.each($(editingSection).find('img'), function(i,v){
+					var _class = $(v).attr('class');
+					var _src = $(v).attr('src');
+					if(_class.includes('center')){
+						$.each($('#mhSectionOptions .preview img'), function(i,v){
+							if($(v).attr('src').includes(_src)){
+								$(v).addClass('center')
+							}
+						})
+					}
+				})
+			}, 500);			
 		},
 		gallery_text: function(){
 			console.log(editingSection)
@@ -1428,6 +1449,19 @@
 			}else{
 				$('#normal').prop("checked", true);
 			}
+			setTimeout(function(){
+				$.each($(editingSection).find('img'), function(i,v){
+					var _class = $(v).attr('class');
+					var _src = $(v).attr('src');
+					if(_class.includes('center')){
+						$.each($('#mhSectionOptions .preview img'), function(i,v){
+							if($(v).attr('src').includes(_src)){
+								$(v).addClass('center')
+							}
+						})
+					}
+				})
+			}, 500);			
 		},
 		page_title: function(){
 			//Insert page title options
@@ -1486,6 +1520,19 @@
 		text: function(){
 			//Clone the section into the editing area
 			$('#mhSectionOptions .preview').append(editingSection.clone());
+			setTimeout(function(){
+				$.each($(editingSection).find('img'), function(i,v){
+					var _class = $(v).attr('class');
+					var _src = $(v).attr('src');
+					if(_class.includes('center')){
+						$.each($('#mhSectionOptions .preview img'), function(i,v){
+							if($(v).attr('src').includes(_src)){
+								$(v).addClass('center')
+							}
+						})
+					}
+				})
+			}, 500);
 		},
 		carrusel: function(){
 			//Clone the section into the editing area

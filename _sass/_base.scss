@@ -181,3 +181,9 @@ body {
 			font-size: 0.8em;
 		}
 	}
+
+/////////////
+*[data-editable] img {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
