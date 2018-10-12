@@ -1153,6 +1153,10 @@
 					$('[lg-uid]').removeAttr('lg-uid');
 					$('[lg-event-uid]').removeAttr('lg-event-uid');
 				}
+				//Carrusel
+				if($('#mhContent .carousel_items'.length !== 0)){
+					destroySlider('#mhContent .carousel_items');
+				}				
 
 			//Save the contents of #mhContent inside the #toSave (2 copies, one for english and one for spanish)
 			$('#toSave').html($('#mhContent')[0].innerHTML);
@@ -1162,7 +1166,11 @@
 				//Slider
 					if($('$mhContent .slider'.length !== 0)){
 						initSlider('#mhContent .slider');
-					}			
+					}
+				//Carrusel
+					if($('$mhContent .carousel_items'.length !== 0)){
+						initSlider('#mhContent .carousel_items');
+					}								
 			//Convert js rendered products into jekyll sintax
 				if($('#toSave .js-content').length > 0){
 					$('#toSave .js-content').remove();
