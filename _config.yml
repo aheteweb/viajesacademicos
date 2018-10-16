@@ -1,5 +1,5 @@
-title: Asesoría en estudios internacionales
-description: 'En Academic And Language tenemos más de 17 años de experiencia y contamos con personal especializado que le guiará en todo lo relacionado con alojamiento, visa, boleto aéreo y todos los detalles necesarios para hacer la elección del curso, destino e instituto que más le conviene.'
+title: 'Cursos internacionales de Inglés, Italiano, Fracés y Alemán. Estudios Universitarios. High School. Campamentos.'
+description: 'En Academic And Language tenemos más de 20 años de experiencia y contamos con personal especializado que le guiará en todo lo relacionado con alojamiento, visa, boleto aéreo y todos los detalles necesarios para hacer la elección del curso, destino e instituto que más le conviene.'
 baseurl: ''
 url: 'https://viajesacademicos.com.ve'
 emails:
@@ -7,11 +7,13 @@ emails:
 address:
   - 'Calle Isla Margarita, Quinta Trinidad, Cumbres de Curumo Caracas, Venezuela 1080'
 phones:
-  - +58 4166323456
   - +58 2124191663
+  - +58 2129773047
+  - +58 4166323456
+  - +58 4143314505
 twitter: 'https://twitter.com/viajeacademico'
 facebook: 'https://www.facebook.com/Tu-Viaje-Academico-757825661060637/'
-instagram: ''
+instagram: 'https://instagram/tuviajeacademico'
 production: false
 markdown: kramdown
 encoding: UTF-8
