@@ -1,29 +1,28 @@
 ---
 layout: default
-css:
-js:
+title: 
 ---
-<div id="admin-page" class="container">
+<div class="container" id="admin-page">
 	<div class="row justify-content-md-center">
 		<div class="col-md-7 user-actions">
 			<div class="logged-out d-none">
 				<h3 class="text-center">SIGN IN</h3>
-				<form action="#" onsubmit="fireSession(event)">
+				<form onsubmit="fireSession(event)" action="#">
 					<div class="form-group">
 				    <label for="adminEmail">Email address</label>
 				    <div class="mail-alert alert alert-danger" role="alert" style="display: none;">mail can't be empty</div>
-				    <input type="email" class="form-control" id="adminEmail" placeholder="Enter email" autofocus>
+				    <input class="form-control" id="adminEmail" autofocus="" type="email" placeholder="Enter email">
 				  </div>
 				  <div class="form-group">
 				    <label for="password">Password</label>
 				    <div class="pass-alert alert alert-danger" role="alert" style="display: none;">password can't be empty</div>
-				    <input type="password" class="form-control" id="password" placeholder="Password">
+				    <input class="form-control" id="password" type="password" placeholder="Password">
 				  </div>
 				  <div class="login-alert alert alert-danger" role="alert" style="display: none;"></div>
-				  <input type="submit" class="btn btn-primary btn-block" value="Sign In">
+				  <input class="btn btn-primary btn-block" type="submit" value="Sign In">
 				</form>
 		  </div>
-		  <div class="logged d-none">
+		  <div class="logged">
 		  	<hr>
 		  	<br>
 		  	<div class="text-center">
@@ -34,22 +33,22 @@ js:
 					
 					<br>
 		  		<h3>Change password</h3>
-		  		<form action="#" onsubmit="updatePass(event)">
+		  		<form onsubmit="updatePass(event)" action="#">
 						<div class="form-group">
 			  			<label for="oldpass">Current Password</label>
-			  			<input type="password" class="form-control" id="oldpass">
+			  			<input class="form-control" id="oldpass" type="password">
 							<div class="alert alert-danger old-pass-error d-none" role="alert">
 							</div>			  			
 		  			</div>		  			
 		  			<div class="form-group">
 			  			<label for="newpass">New Password (at least 6 characters)</label>
-			  			<input type="password" class="form-control" id="newpass">
+			  			<input class="form-control" id="newpass" type="password">
 			  			<div class="alert alert-danger new-pass-error d-none" role="alert">
 							</div>
 							<div class="alert alert-success new-pass-success d-none" role="alert">
 							</div>
 		  			</div>
-		  			<input type="submit" class="btn btn-primary btn-block update-pass" value="Update" disabled>
+		  			<input disabled="disabled" class="btn btn-primary btn-block update-pass" type="submit" value="Update">
 		  		</form>
 		  	</div>
 		  </div>
